@@ -6,9 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Bezhudby – uhádni pieseň z krátkého úryvku" />
     <title>Bezhudby</title>
+    <!-- Preconnect to shorten DNS/TLS handshake time -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,800;0,900;1,800;1,900&family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet" />
+    <!-- Load fonts asynchronously – avoids render-blocking (Lighthouse fix) -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,800;0,900;1,800;1,900&family=Orbitron:wght@600;800;900&display=swap"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,800;0,900;1,800;1,900&family=Orbitron:wght@600;800;900&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <!-- Fallback for JS-disabled browsers -->
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,800;0,900;1,800;1,900&family=Orbitron:wght@600;800;900&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
   </head>
   <body>
     <div id="root"></div>
