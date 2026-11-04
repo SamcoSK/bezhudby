@@ -102,20 +102,7 @@ export default function GameScreen() {
         <>
           {/* ── Game area ─────────────────────────────────────────────────── */}
           <div className="card p-5 sm:p-6 flex flex-col gap-5 border-vice-pink/30 shadow-neon-pink/30">
-            {/* Song count badge */}
-            <div className="flex items-center justify-between text-xs text-purple-300 font-bold uppercase tracking-wider">
-              <span className="bg-vice-card/80 border border-purple-800/60 px-2.5 py-1 rounded-lg">
-                🎵 {filteredSongs.length} v rotácii
-              </span>
-              {phase === 'playing' && (
-                <span className="font-black text-vice-hotpink animate-pulse-soft flex items-center gap-1.5 drop-shadow-[0_0_8px_#ff007f]">
-                  <span className="w-2 h-2 rounded-full bg-vice-hotpink animate-ping"></span>
-                  LIVE ON AIR
-                </span>
-              )}
-            </div>
-
-            {/* Audio player */}
+          {/* Audio player */}
             <AudioPlayer
               attempt={attempt}
               isPlaying={isPlaying}

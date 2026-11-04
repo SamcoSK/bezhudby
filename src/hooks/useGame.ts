@@ -59,6 +59,10 @@ export function useGame(): UseGameReturn {
   // ── Audio ──────────────────────────────────────────────────────────────────
   const audio = useAudio()
 
+  // Guard: holds the timer ID of any pending auto-play so we can cancel it
+  // before scheduling a new one (prevents stacking multiple plays on rapid skips)
+  const autoPlayTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
   // ── Game state ────────────────────────────────────────────────────────────
   const [gameState, setGameState] = useState<GameState>({
     currentSong: null,
@@ -76,6 +80,10 @@ export function useGame(): UseGameReturn {
   // ── When filters change – reset bag and start a new game ──────────────────
   const startNewGame = useCallback((pool: Song[]) => {
     audio.stop()
+    if (autoPlayTimerRef.current !== null) {
+      clearTimeout(autoPlayTimerRef.current)
+      autoPlayTimerRef.current = null
+    }
     bagRef.current.reset(pool)
     const song = bagRef.current.pick()
     setGameState({
@@ -160,8 +168,15 @@ export function useGame(): UseGameReturn {
       }))
     } else {
       advanceAttempt(entry)
+      // Cancel any pending auto-play before scheduling a new one
+      if (autoPlayTimerRef.current !== null) {
+        clearTimeout(autoPlayTimerRef.current)
+        autoPlayTimerRef.current = null
+      }
+      audio.stop()
       // Auto-play the longer clip after a wrong guess
-      setTimeout(async () => {
+      autoPlayTimerRef.current = setTimeout(async () => {
+        autoPlayTimerRef.current = null
         const nextAttempt = attempt + 1
         if (nextAttempt < MAX_ATTEMPTS && currentSong) {
           const offset = currentSong.clipStart ?? 0
@@ -185,8 +200,15 @@ export function useGame(): UseGameReturn {
 
     advanceAttempt(entry)
 
+    // Cancel any pending auto-play before scheduling a new one
+    if (autoPlayTimerRef.current !== null) {
+      clearTimeout(autoPlayTimerRef.current)
+      autoPlayTimerRef.current = null
+    }
+    audio.stop()
     // Auto-play the longer clip
-    setTimeout(async () => {
+    autoPlayTimerRef.current = setTimeout(async () => {
+      autoPlayTimerRef.current = null
       const nextAttempt = attempt + 1
       if (nextAttempt < MAX_ATTEMPTS && currentSong) {
         const offset = currentSong.clipStart ?? 0
@@ -198,6 +220,10 @@ export function useGame(): UseGameReturn {
 
   const nextSong = useCallback(() => {
     audio.stop()
+    if (autoPlayTimerRef.current !== null) {
+      clearTimeout(autoPlayTimerRef.current)
+      autoPlayTimerRef.current = null
+    }
     // Make sure bag pool is aligned with current filteredSongs
     if (bagRef.current.size !== filteredSongs.length) {
       bagRef.current.reset(filteredSongs)
