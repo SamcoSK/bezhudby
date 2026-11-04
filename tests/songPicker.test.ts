@@ -144,4 +144,23 @@ describe('ShuffleBag', () => {
       expect(counts[id]).toBe(CYCLES)
     }
   })
+
+  it('anti-clustering: same artist does not play back-to-back (with multi-song artist pool)', () => {
+    // Create pool where 2 songs share the same artist
+    const multiArtistPool: Song[] = [
+      { id: 'song-a1', title: 'Song A1', artist: 'ArtistA', lang: 'en', genre: 'pop', difficulty: 'easy', audio: '/a1.mp3' },
+      { id: 'song-a2', title: 'Song A2', artist: 'ArtistA', lang: 'en', genre: 'pop', difficulty: 'easy', audio: '/a2.mp3' },
+      { id: 'song-b1', title: 'Song B1', artist: 'ArtistB', lang: 'en', genre: 'pop', difficulty: 'easy', audio: '/b1.mp3' },
+      { id: 'song-c1', title: 'Song C1', artist: 'ArtistC', lang: 'en', genre: 'pop', difficulty: 'easy', audio: '/c1.mp3' },
+    ]
+    const bag = new ShuffleBag(multiArtistPool)
+    const picked: Song[] = []
+    for (let i = 0; i < multiArtistPool.length; i++) {
+      picked.push(bag.pick()!)
+    }
+    // No two consecutive songs should be from the same artist
+    for (let i = 1; i < picked.length; i++) {
+      expect(picked[i].artist).not.toBe(picked[i - 1].artist)
+    }
+  })
 })
