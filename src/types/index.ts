@@ -12,7 +12,7 @@ export type Genre =
   | 'electronic'
   | 'metal'
   | 'country'
-  | 'indie'
+  | 'rap'
 
 export type Difficulty = 'easy' | 'medium' | 'hard'
 
@@ -125,11 +125,11 @@ export const GENRE_LABELS: Record<Genre, string> = {
   electronic: 'Elektronika',
   metal: 'Metal',
   country: 'Country',
-  indie: 'Indie',
+  rap: 'Rap',
 }
 
 export const ALL_GENRES: Genre[] = [
-  'pop', 'rock', 'hiphop', 'rnb', 'electronic', 'metal', 'country', 'indie',
+  'pop', 'rock', 'hiphop', 'rnb', 'electronic', 'metal', 'country', 'rap',
 ]
 
 export const SK_TYPE_LABELS: Record<SkType, string> = {

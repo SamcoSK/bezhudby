@@ -95,7 +95,7 @@ Pre anglické skladby sú povinné polia `genre` a `difficulty`:
   "title": "Shape of You",
   "artist": "Ed Sheeran",
   "lang": "en",
-  "genre": "pop",                   // pop | rock | hiphop | rnb | electronic | metal | country | indie
+  "genre": "pop",                   // pop | rock | hiphop | rnb | electronic | metal | country | rap
   "difficulty": "easy",             // easy | medium | hard
   "audio": "",                      // doplní sa cez npm run fetch-previews
   "clipStart": 0

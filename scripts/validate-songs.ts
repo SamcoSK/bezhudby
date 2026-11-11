@@ -32,7 +32,7 @@ const songs: Record<string, unknown>[] = JSON.parse(readFileSync(songsPath, 'utf
 
 const BASE_REQUIRED = ['id', 'title', 'artist', 'lang', 'audio'] as const
 const VALID_LANGS = ['sk', 'en']
-const VALID_GENRES = ['pop', 'rock', 'hiphop', 'rnb', 'electronic', 'metal', 'country', 'indie']
+const VALID_GENRES = ['pop', 'rock', 'hiphop', 'rnb', 'electronic', 'metal', 'country', 'rap']
 const VALID_DIFFICULTIES = ['easy', 'medium', 'hard']
 const VALID_SK_TYPES = ['modern', 'og', 'folk']
 
@@ -57,6 +57,10 @@ for (let i = 0; i < songs.length; i++) {
   const prefix = `[${i}] ${String(s.id ?? '(bez id)')}`
 
   const isPlaceholder = Boolean(s.todo || (typeof s.comment === 'string' && s.comment.includes('overiť názov a interpreta') && (!s.title || !s.artist)))
+
+  if (s.todo) {
+    warn(`${prefix}: TODO pieseň (audio=fallback) – bude vylúčená z hry`)
+  }
 
   // Base required fields
   for (const field of BASE_REQUIRED) {

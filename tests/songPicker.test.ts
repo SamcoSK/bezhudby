@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { filterEnSongs, filterSkSongs, filterSongs, ShuffleBag } from '../src/utils/songPicker'
 import type { Song } from '../src/types'
+import songsData from '../src/data/songs.json'
 
 // ── Minimal mock songs ────────────────────────────────────────────────────────
 
@@ -29,7 +30,7 @@ describe('filterEnSongs', () => {
   })
 
   it('filters all genres', () => {
-    const result = filterEnSongs(mockSongs, ['pop', 'rock', 'hiphop', 'rnb', 'electronic', 'metal', 'country', 'indie'], 'easy')
+    const result = filterEnSongs(mockSongs, ['pop', 'rock', 'hiphop', 'rnb', 'electronic', 'metal', 'country', 'rap'], 'easy')
     expect(result).toHaveLength(2)
     expect(result.map((s) => s.id)).toContain('shape-of-you')
     expect(result.map((s) => s.id)).toContain('bohemian')
@@ -218,5 +219,45 @@ describe('ShuffleBag', () => {
     // With balanced groups and interleaving, same-artist back-to-back should be very rare
     // Allow at most 3 out of 17 possible consecutive pairs
     expect(consecutive).toBeLessThanOrEqual(3)
+  })
+})
+
+// ── songs.json integrity tests ────────────────────────────────────────────────
+
+const allSongs = songsData as Song[]
+
+describe('songs.json integrity', () => {
+  it('no songs have genre "indie"', () => {
+    const indieSongs = allSongs.filter((s) => s.genre === ('indie' as never))
+    expect(indieSongs).toHaveLength(0)
+  })
+
+  it('Carly Rae Jepsen has exactly 1 solo song', () => {
+    const cjrSolo = allSongs.filter(
+      (s) => s.artist === 'Carly Rae Jepsen'
+    )
+    expect(cjrSolo).toHaveLength(1)
+    expect(cjrSolo[0].title).toBe('Call Me Maybe')
+  })
+
+  it('Marshmello has 12+ songs (as primary or featured artist)', () => {
+    const marshmelloSongs = allSongs.filter(
+      (s) => s.artist && s.artist.toLowerCase().includes('marshmello')
+    )
+    expect(marshmelloSongs.length).toBeGreaterThanOrEqual(12)
+  })
+
+  it('Don Toliver has 12+ songs', () => {
+    const donToliverSongs = allSongs.filter(
+      (s) => s.artist && s.artist.toLowerCase().includes('don toliver')
+    )
+    expect(donToliverSongs.length).toBeGreaterThanOrEqual(12)
+  })
+
+  it('Juice WRLD has 12+ songs', () => {
+    const juiceWrldSongs = allSongs.filter(
+      (s) => s.artist && s.artist.toLowerCase().includes('juice wrld')
+    )
+    expect(juiceWrldSongs.length).toBeGreaterThanOrEqual(12)
   })
 })

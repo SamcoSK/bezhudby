@@ -43,9 +43,14 @@ export interface UseGameReturn {
 
 export function useGame(): UseGameReturn {
   // ── Filters ───────────────────────────────────────────────────────────────
-  const [filters, setFilters] = useState<Filters>(() =>
-    getItem<Filters>(STORAGE_KEYS.FILTERS, DEFAULT_FILTERS),
-  )
+  const [filters, setFilters] = useState<Filters>(() => {
+    const stored = getItem<Filters>(STORAGE_KEYS.FILTERS, DEFAULT_FILTERS)
+    // Migrate: replace 'indie' with 'rap' in stored genres
+    if (stored.genres && stored.genres.includes('indie' as Genre)) {
+      stored.genres = stored.genres.map((g) => (g === ('indie' as Genre) ? 'rap' : g)) as Genre[]
+    }
+    return stored
+  })
 
   // Persist filters
   useEffect(() => {
