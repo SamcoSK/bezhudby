@@ -3230,16 +3230,6 @@
     "clipStart": 0
   },
   {
-    "id": "en-hiphop-easy-24-don-toliver-cardigan",
-    "title": "Cardigan",
-    "artist": "Don Toliver",
-    "lang": "en",
-    "genre": "hiphop",
-    "difficulty": "easy",
-    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/50/13/7c/50137cfa-ef2f-5961-692c-f16ad9dfd5b7/mzaf_3843823517830343632.plus.aac.p.m4a",
-    "clipStart": 0
-  },
-  {
     "id": "en-hiphop-easy-25-mc-joe-talk-dirty-fitness-version-128-bpm",
     "title": "Talk Dirty (Fitness Version 128 Bpm)",
     "artist": "MC Joe",
@@ -3517,16 +3507,6 @@
     "genre": "hiphop",
     "difficulty": "easy",
     "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/29/ae/3e/29ae3e6e-f8e2-2790-97c8-9adb576967dd/mzaf_14764666470308178075.plus.aac.p.m4a",
-    "clipStart": 0
-  },
-  {
-    "id": "en-hiphop-med-3-don-toliver-no-idea",
-    "title": "No Idea",
-    "artist": "Don Toliver",
-    "lang": "en",
-    "genre": "hiphop",
-    "difficulty": "medium",
-    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/0d/4f/0f/0d4f0f87-a930-c4c9-99e8-0edce8e4f91a/mzaf_7455232474434756947.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -31896,15 +31876,6 @@
     "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/6f/86/11/6f8611f5-8a78-4555-1f90-39e8be01dddf/mzaf_14838391676290474598.plus.aac.p.m4a"
   },
   {
-    "id": "53d9b135",
-    "title": "Happier (feat. Bastille) [Breathe Carolina Remix]",
-    "artist": "Marshmello",
-    "genre": "electronic",
-    "difficulty": "easy",
-    "lang": "en",
-    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/28/aa/81/28aa81c3-1e80-11bd-4b0c-a0cf42597fd2/mzaf_5164596504364437293.plus.aac.p.m4a"
-  },
-  {
     "id": "51c2121c",
     "title": "Lily",
     "artist": "Alan Walker, K-391 & Emelie Hollow",
@@ -54374,16 +54345,6 @@
     "clipStart": 0
   },
   {
-    "id": "don-toliver-no-idea",
-    "title": "No Idea",
-    "artist": "Don Toliver",
-    "lang": "en",
-    "genre": "rap",
-    "difficulty": "easy",
-    "audio": "/audio/don-toliver-no-idea.mp3",
-    "clipStart": 0
-  },
-  {
     "id": "don-toliver-way-big",
     "title": "Way Big",
     "artist": "Don Toliver feat. Travis Scott",
@@ -54685,6 +54646,176 @@
     "audio": "fallback",
     "todo": true,
     "comment": "overiť interpreta",
+    "clipStart": 0
+  },
+  {
+    "id": "don-toliver-no-idea-v2",
+    "title": "No Idea",
+    "artist": "Don Toliver",
+    "lang": "en",
+    "genre": "rap",
+    "difficulty": "easy",
+    "audio": "/audio/don-toliver-no-idea-v2.mp3",
+    "clipStart": 0
+  },
+  {
+    "id": "don-toliver-body",
+    "title": "Body",
+    "artist": "Don Toliver",
+    "lang": "en",
+    "genre": "rap",
+    "difficulty": "easy",
+    "audio": "/audio/don-toliver-body.mp3",
+    "clipStart": 0
+  },
+  {
+    "id": "don-toliver-cardigan",
+    "title": "Cardigan",
+    "artist": "Don Toliver",
+    "lang": "en",
+    "genre": "rap",
+    "difficulty": "easy",
+    "audio": "/audio/don-toliver-cardigan.mp3",
+    "clipStart": 0
+  },
+  {
+    "id": "don-toliver-secondhand",
+    "title": "Secondhand",
+    "artist": "Don Toliver",
+    "lang": "en",
+    "genre": "rap",
+    "difficulty": "medium",
+    "audio": "/audio/don-toliver-secondhand.mp3",
+    "clipStart": 0
+  },
+  {
+    "id": "don-toliver-the-wknd",
+    "title": "The WKND",
+    "artist": "Don Toliver",
+    "lang": "en",
+    "genre": "rap",
+    "difficulty": "medium",
+    "audio": "/audio/don-toliver-the-wknd.mp3",
+    "clipStart": 0
+  },
+  {
+    "id": "don-toliver-dishonest",
+    "title": "Dishonest",
+    "artist": "Don Toliver",
+    "lang": "en",
+    "genre": "rap",
+    "difficulty": "medium",
+    "audio": "/audio/don-toliver-dishonest.mp3",
+    "clipStart": 0
+  },
+  {
+    "id": "don-toliver-ice-cream",
+    "title": "Ice Cream",
+    "artist": "Don Toliver",
+    "lang": "en",
+    "genre": "rap",
+    "difficulty": "hard",
+    "audio": "/audio/don-toliver-ice-cream.mp3",
+    "clipStart": 0
+  },
+  {
+    "id": "don-toliver-outerspace-ridez",
+    "title": "Outerspace / Ridin' Around",
+    "artist": "Don Toliver",
+    "lang": "en",
+    "genre": "rap",
+    "difficulty": "hard",
+    "audio": "/audio/don-toliver-outerspace-ridez.mp3",
+    "clipStart": 0
+  },
+  {
+    "id": "marshmello-alone",
+    "title": "Alone",
+    "artist": "Marshmello",
+    "lang": "en",
+    "genre": "electronic",
+    "difficulty": "easy",
+    "audio": "/audio/marshmello-alone.mp3",
+    "clipStart": 0
+  },
+  {
+    "id": "marshmello-happier",
+    "title": "Happier",
+    "artist": "Marshmello & Bastille",
+    "lang": "en",
+    "genre": "electronic",
+    "difficulty": "easy",
+    "audio": "/audio/marshmello-happier.mp3",
+    "clipStart": 0
+  },
+  {
+    "id": "marshmello-friends",
+    "title": "FRIENDS",
+    "artist": "Marshmello & Anne-Marie",
+    "lang": "en",
+    "genre": "electronic",
+    "difficulty": "easy",
+    "audio": "/audio/marshmello-friends.mp3",
+    "clipStart": 0
+  },
+  {
+    "id": "marshmello-silence",
+    "title": "Silence",
+    "artist": "Marshmello feat. Khalid",
+    "lang": "en",
+    "genre": "electronic",
+    "difficulty": "easy",
+    "audio": "/audio/marshmello-silence.mp3",
+    "clipStart": 0
+  },
+  {
+    "id": "marshmello-be-kind",
+    "title": "Be Kind",
+    "artist": "Marshmello & Halsey",
+    "lang": "en",
+    "genre": "pop",
+    "difficulty": "easy",
+    "audio": "/audio/marshmello-be-kind.mp3",
+    "clipStart": 0
+  },
+  {
+    "id": "marshmello-rescue-me",
+    "title": "Rescue Me",
+    "artist": "Marshmello & Anne-Marie",
+    "lang": "en",
+    "genre": "pop",
+    "difficulty": "easy",
+    "audio": "/audio/marshmello-rescue-me.mp3",
+    "clipStart": 0
+  },
+  {
+    "id": "marshmello-moving-on",
+    "title": "Moving On",
+    "artist": "Marshmello",
+    "lang": "en",
+    "genre": "electronic",
+    "difficulty": "medium",
+    "audio": "/audio/marshmello-moving-on.mp3",
+    "clipStart": 0
+  },
+  {
+    "id": "marshmello-take-it-back",
+    "title": "Take It Back",
+    "artist": "Marshmello feat. MAGIC!",
+    "lang": "en",
+    "genre": "electronic",
+    "difficulty": "medium",
+    "audio": "/audio/marshmello-take-it-back.mp3",
+    "clipStart": 0
+  },
+  {
+    "id": "marshmello-light-it-up",
+    "title": "Light It Up",
+    "artist": "Marshmello feat. Tyga & Chris Brown",
+    "lang": "en",
+    "genre": "pop",
+    "difficulty": "medium",
+    "audio": "/audio/marshmello-light-it-up.mp3",
     "clipStart": 0
   }
 ]
