@@ -115,25 +115,20 @@ export function useGame(): UseGameReturn {
   const startNewGameRef = useRef(startNewGameFn)
   startNewGameRef.current = startNewGameFn
 
-  // Track previous filter key to detect changes
-  const prevFilterKeyRef = useRef<string>('')
+  // Single effect handles both initial mount and filter changes.
+  // prevFilterKeyRef starts as null so the very first filterKey value always
+  // triggers a game start (covers the initial load in production mode).
   const filterKey = filters.skMode
     ? `sk|${filters.skTypes.slice().sort().join(',')}`
     : `en|${filters.genres.slice().sort().join(',')}|${filters.difficulty}`
+
+  const prevFilterKeyRef = useRef<string | null>(null)
 
   useEffect(() => {
     if (prevFilterKeyRef.current === filterKey) return
     prevFilterKeyRef.current = filterKey
     startNewGameRef.current(filteredSongsRef.current)
   }, [filterKey])
-
-  // Initial game start
-  const didInit = useRef(false)
-  useEffect(() => {
-    if (didInit.current) return
-    didInit.current = true
-    startNewGameRef.current(filteredSongsRef.current)
-  }, [])
 
   // ── Actions ───────────────────────────────────────────────────────────────
 
