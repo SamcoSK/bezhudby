@@ -1,19 +1,24 @@
 import { useEffect, useRef } from 'react'
-import type { AllStats, Difficulty } from '../types'
+import type { AllStats, StatsCategory } from '../types'
 import { DIFFICULTY_LABELS } from '../types'
 
 interface StatsModalProps {
   stats: AllStats
-  currentDifficulty: Difficulty
+  currentCategory: StatsCategory
   onClose: () => void
   onReset: () => void
 }
 
-const DIFFICULTIES: Difficulty[] = ['easy', 'medium', 'hard']
+const TABS: { key: StatsCategory; label: string }[] = [
+  { key: 'sk',     label: '🇸🇰 Slovenské' },
+  { key: 'easy',   label: DIFFICULTY_LABELS.easy },
+  { key: 'medium', label: DIFFICULTY_LABELS.medium },
+  { key: 'hard',   label: DIFFICULTY_LABELS.hard },
+]
 
 export default function StatsModal({
   stats,
-  currentDifficulty,
+  currentCategory,
   onClose,
   onReset,
 }: StatsModalProps) {
@@ -31,7 +36,7 @@ export default function StatsModal({
     return () => window.removeEventListener('keydown', handler)
   }, [onClose])
 
-  const ds = stats[currentDifficulty]
+  const ds = stats[currentCategory]
   const winRate = ds.played > 0 ? Math.round((ds.won / ds.played) * 100) : 0
 
   // Build distribution bar chart
@@ -68,23 +73,23 @@ export default function StatsModal({
           </button>
         </div>
 
-        {/* Difficulty tabs */}
-        <div className="flex gap-1 p-1 bg-slate-100 dark:bg-slate-800 rounded-xl">
-          {DIFFICULTIES.map((d) => (
+        {/* Category tabs */}
+        <div className="flex gap-1 p-1 bg-slate-100 dark:bg-slate-800 rounded-xl overflow-x-auto" role="tablist">
+          {TABS.map(({ key, label }) => (
             <button
-              key={d}
+              key={key}
+              role="tab"
+              aria-selected={key === currentCategory}
               className={[
-                'flex-1 py-1.5 rounded-lg text-sm font-medium transition-colors',
-                d === currentDifficulty
+                'flex-1 py-1.5 px-2 rounded-lg text-xs font-medium transition-colors whitespace-nowrap',
+                key === currentCategory
                   ? 'bg-white dark:bg-slate-700 shadow-sm text-brand-700 dark:text-brand-300'
                   : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200',
               ].join(' ')}
-              aria-pressed={d === currentDifficulty}
-              // Note: clicking here doesn't change the game difficulty, just for display
-              // in a real extension you could make tabs interactive
-              disabled={d !== currentDifficulty}
+              // Note: tabs are display-only – the active category comes from the game state
+              disabled={key !== currentCategory}
             >
-              {DIFFICULTY_LABELS[d]}
+              {label}
             </button>
           ))}
         </div>

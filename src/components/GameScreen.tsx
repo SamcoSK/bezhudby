@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useGame } from '../hooks/useGame'
 import { useStats } from '../hooks/useStats'
 import { ALL_GENRES } from '../types'
-import type { Genre } from '../types'
+import type { Genre, SkType } from '../types'
 import FilterBar from './FilterBar'
 import DifficultySelector from './DifficultySelector'
 import AudioPlayer from './AudioPlayer'
@@ -12,7 +12,7 @@ import ResultModal from './ResultModal'
 import StatsModal from './StatsModal'
 
 export default function GameScreen() {
-  const { gameState, filters, filteredSongs, allSongsForLang, audio, actions } = useGame()
+  const { gameState, filters, filteredSongs, allSongsForMode, audio, actions } = useGame()
   const { getStats, recordResult, resetStats } = useStats()
   const [showStats, setShowStats] = useState(false)
 
@@ -20,11 +20,10 @@ export default function GameScreen() {
   const isEnded = phase === 'won' || phase === 'lost'
 
   // ── Record stats when a game ends ─────────────────────────────────────────
-  // useRef persists the flag across renders without triggering re-renders
   const recordedRef = useRef(false)
   useEffect(() => {
     if (!isEnded) {
-      recordedRef.current = false // reset flag for new game
+      recordedRef.current = false
       return
     }
     if (recordedRef.current) return
@@ -32,7 +31,9 @@ export default function GameScreen() {
     const won = phase === 'won'
     const correctGuess = guesses.find((g) => g.status === 'correct')
     const attemptNumber = correctGuess ? guesses.indexOf(correctGuess) + 1 : undefined
-    recordResult(filters.difficulty, won, attemptNumber)
+    // SK songs all go into the 'sk' stats category
+    const category = filters.skMode ? 'sk' : filters.difficulty
+    recordResult(category, won, attemptNumber)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEnded])
 
@@ -42,13 +43,22 @@ export default function GameScreen() {
     const next = current.includes(g)
       ? current.filter((x) => x !== g)
       : [...current, g]
-    // Always keep at least one genre active
     if (next.length === 0) return
     actions.setGenres(next)
   }
 
   const handleGenreSelectAll = () => {
     actions.setGenres([...ALL_GENRES])
+  }
+
+  // ── SK type toggle ─────────────────────────────────────────────────────────
+  const handleSkTypeToggle = (t: SkType) => {
+    const current = filters.skTypes
+    const next = current.includes(t)
+      ? current.filter((x) => x !== t)
+      : [...current, t]
+    if (next.length === 0) return // keep at least one
+    actions.setSkTypes(next)
   }
 
   // ── Empty state ───────────────────────────────────────────────────────────
@@ -60,7 +70,7 @@ export default function GameScreen() {
       <div className="flex flex-col gap-4">
         <div className="flex items-center justify-between gap-2">
           <h1 className="text-xs font-black text-vice-cyan uppercase tracking-widest font-display drop-shadow-[0_0_8px_rgba(0,240,255,0.4)]">
-            🌴 VÝBER STANICE & OBTIAŽNOSTI
+            🌴 VÝBER STANICE &amp; OBTIAŽNOSTI
           </h1>
           <button
             onClick={() => setShowStats(true)}
@@ -71,14 +81,17 @@ export default function GameScreen() {
           </button>
         </div>
 
+        {/* Difficulty – hidden in SK mode but space is reserved */}
         <DifficultySelector
           current={filters.difficulty}
           onChange={actions.setDifficulty}
+          hidden={filters.skMode}
         />
 
         <FilterBar
           filters={filters}
-          onLangChange={actions.setLang}
+          onSkModeChange={actions.setSkMode}
+          onSkTypeToggle={handleSkTypeToggle}
           onGenreToggle={handleGenreToggle}
           onGenreSelectAll={handleGenreSelectAll}
         />
@@ -95,14 +108,24 @@ export default function GameScreen() {
             Pre tento výber zatiaľ nie sú skladby.
           </p>
           <p className="text-xs text-purple-300">
-            Skús inú obtiažnosť alebo žáner.
+            Skús iný typ, žáner alebo obtiažnosť.
           </p>
         </div>
       ) : (
         <>
           {/* ── Game area ─────────────────────────────────────────────────── */}
           <div className="card p-5 sm:p-6 flex flex-col gap-5 border-vice-pink/30 shadow-neon-pink/30">
-          {/* Audio player */}
+            {/* Live indicator */}
+            {phase === 'playing' && (
+              <div className="flex justify-end">
+                <span className="font-black text-vice-hotpink text-xs animate-pulse-soft flex items-center gap-1.5 drop-shadow-[0_0_8px_#ff007f]">
+                  <span className="w-2 h-2 rounded-full bg-vice-hotpink animate-ping"></span>
+                  LIVE ON AIR
+                </span>
+              </div>
+            )}
+
+            {/* Audio player */}
             <AudioPlayer
               attempt={attempt}
               isPlaying={isPlaying}
@@ -117,7 +140,7 @@ export default function GameScreen() {
             {/* Guess input (only shown while playing) */}
             {phase === 'playing' && currentSong && (
               <GuessInput
-                songs={allSongsForLang}
+                songs={allSongsForMode}
                 disabled={false}
                 onGuess={actions.submitGuess}
                 onSkip={actions.skipAttempt}
@@ -145,7 +168,7 @@ export default function GameScreen() {
       {showStats && (
         <StatsModal
           stats={getStats()}
-          currentDifficulty={filters.difficulty}
+          currentCategory={filters.skMode ? 'sk' : filters.difficulty}
           onClose={() => setShowStats(false)}
           onReset={() => { resetStats(); setShowStats(false) }}
         />

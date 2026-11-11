@@ -70,7 +70,9 @@ export default function ResultModal({
         {/* Song info */}
         <div className="bg-vice-card/90 border border-vice-border rounded-xl p-4 text-center shadow-inner">
           <p className="text-xl font-black text-white font-display tracking-wide">{song.title}</p>
-          <p className="text-sm font-bold text-vice-cyan">{song.artist}</p>
+          <p className="text-sm font-bold text-vice-cyan">
+            {song.artist}{song.performer ? ` (${song.performer})` : ''}
+          </p>
         </div>
 
         {/* Result summary chips */}

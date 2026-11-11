@@ -22,14 +22,15 @@ export function normalizeText(text: string): string {
  * after both are normalized.
  */
 export function songMatchesQuery(
-  song: { title: string; artist: string },
+  song: { title?: string; artist?: string },
   query: string,
 ): boolean {
   if (!query.trim()) return false
+  if (!song.title && !song.artist) return false
   const q = normalizeText(query)
   return (
-    normalizeText(song.title).includes(q) ||
-    normalizeText(song.artist).includes(q)
+    normalizeText(song.title || '').includes(q) ||
+    normalizeText(song.artist || '').includes(q)
   )
 }
 

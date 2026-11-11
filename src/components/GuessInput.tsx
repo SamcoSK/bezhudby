@@ -18,6 +18,11 @@ interface GuessInputProps {
   maxAttempts: number
 }
 
+export function formatSongDisplay(song: Song): string {
+  const performer = song.performer ? ` (${song.performer})` : ''
+  return `${song.title} – ${song.artist}${performer}`
+}
+
 export default function GuessInput({
   songs,
   disabled,
@@ -47,7 +52,7 @@ export default function GuessInput({
 
   const selectSong = useCallback((song: Song) => {
     setSelectedSong(song)
-    setQuery(`${song.title} – ${song.artist}`)
+    setQuery(formatSongDisplay(song))
     setSuggestions([])
     setActiveIdx(-1)
     inputRef.current?.focus()
@@ -187,7 +192,9 @@ export default function GuessInput({
                 ].join(' ')}
               >
                 <span className="font-bold text-white">{song.title}</span>
-                <span className="text-purple-300/70"> – {song.artist}</span>
+                <span className="text-purple-300/70">
+                  {' '}– {song.artist}{song.performer ? ` (${song.performer})` : ''}
+                </span>
               </li>
             ))}
           </ul>

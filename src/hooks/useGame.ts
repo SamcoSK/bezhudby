@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import type { Song, GameState, GuessEntry, Filters, Difficulty, Genre } from '../types'
-import { MAX_ATTEMPTS, CLIP_DURATIONS, ALL_GENRES } from '../types'
-import { filterSongs, ShuffleBag, getClipDuration } from '../utils/songPicker'
+import type { Song, GameState, GuessEntry, Filters, Difficulty, Genre, SkType } from '../types'
+import { MAX_ATTEMPTS, CLIP_DURATIONS, ALL_GENRES, ALL_SK_TYPES } from '../types'
+import { filterEnSongs, filterSkSongs, ShuffleBag, getClipDuration } from '../utils/songPicker'
 import { getItem, setItem, STORAGE_KEYS } from '../utils/storage'
 import { useAudio } from './useAudio'
 import songsData from '../data/songs.json'
@@ -12,7 +12,8 @@ const allSongs = songsData as Song[]
 // ── Default filter state ──────────────────────────────────────────────────────
 
 const DEFAULT_FILTERS: Filters = {
-  lang: 'en',
+  skMode: false,
+  skTypes: [...ALL_SK_TYPES],
   genres: [...ALL_GENRES],
   difficulty: 'easy',
 }
@@ -23,12 +24,13 @@ export interface UseGameReturn {
   gameState: GameState
   filters: Filters
   filteredSongs: Song[]
-  allSongsForLang: Song[]
+  allSongsForMode: Song[]  // all SK or all EN songs (for guess input)
   audio: UseAudioReturn
   actions: {
+    setSkMode: (on: boolean) => void
+    setSkTypes: (t: SkType[]) => void
     setDifficulty: (d: Difficulty) => void
     setGenres: (g: Genre[]) => void
-    setLang: (l: 'sk' | 'en') => void
     playClip: () => Promise<void>
     playFull: () => Promise<void>
     submitGuess: (songId: string) => void
@@ -51,8 +53,14 @@ export function useGame(): UseGameReturn {
   }, [filters])
 
   // ── Song pool ─────────────────────────────────────────────────────────────
-  const filteredSongs = filterSongs(allSongs, filters.lang, filters.genres, filters.difficulty)
-  const allSongsForLang = allSongs.filter((s) => s.lang === filters.lang)
+  const filteredSongs: Song[] = filters.skMode
+    ? filterSkSongs(allSongs, filters.skTypes)
+    : filterEnSongs(allSongs, filters.genres, filters.difficulty)
+
+  // All songs for the current mode (for guess input – not filtered by skType/genre/difficulty)
+  const allSongsForMode: Song[] = filters.skMode
+    ? allSongs.filter((s) => s.lang === 'sk')
+    : allSongs.filter((s) => s.lang === 'en')
 
   const bagRef = useRef<ShuffleBag>(new ShuffleBag(filteredSongs))
 
@@ -60,7 +68,6 @@ export function useGame(): UseGameReturn {
   const audio = useAudio()
 
   // Guard: holds the timer ID of any pending auto-play so we can cancel it
-  // before scheduling a new one (prevents stacking multiple plays on rapid skips)
   const autoPlayTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   // ── Game state ────────────────────────────────────────────────────────────
@@ -97,22 +104,23 @@ export function useGame(): UseGameReturn {
 
   // Track previous filter key to detect changes
   const prevFilterKeyRef = useRef<string>('')
-  const filterKey = `${filters.lang}|${filters.genres.slice().sort().join(',')}|${filters.difficulty}`
+  const filterKey = filters.skMode
+    ? `sk|${filters.skTypes.slice().sort().join(',')}`
+    : `en|${filters.genres.slice().sort().join(',')}|${filters.difficulty}`
 
   useEffect(() => {
     if (prevFilterKeyRef.current === filterKey) return
     prevFilterKeyRef.current = filterKey
-    const pool = filterSongs(allSongs, filters.lang, filters.genres, filters.difficulty)
-    startNewGame(pool)
-  }, [filterKey, filters, startNewGame])
+    startNewGame(filteredSongs)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterKey])
 
   // Initial game start
   const didInit = useRef(false)
   useEffect(() => {
     if (didInit.current) return
     didInit.current = true
-    const pool = filterSongs(allSongs, filters.lang, filters.genres, filters.difficulty)
-    startNewGame(pool)
+    startNewGame(filteredSongs)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Actions ───────────────────────────────────────────────────────────────
@@ -156,7 +164,9 @@ export function useGame(): UseGameReturn {
     const entry: GuessEntry = {
       attempt,
       status: isCorrect ? 'correct' : 'wrong',
-      value: matchedSong ? `${matchedSong.title} – ${matchedSong.artist}` : songId,
+      value: matchedSong
+        ? `${matchedSong.title} – ${matchedSong.artist}${matchedSong.performer ? ` (${matchedSong.performer})` : ''}`
+        : songId,
       clipDuration: getClipDuration(attempt),
     }
 
@@ -238,7 +248,15 @@ export function useGame(): UseGameReturn {
     })
   }, [audio, filteredSongs, gameState.currentSong?.id])
 
-  // ── Filter setters (each resets the game) ─────────────────────────────────
+  // ── Filter setters ────────────────────────────────────────────────────────
+
+  const setSkMode = useCallback((on: boolean) => {
+    setFilters((prev) => ({ ...prev, skMode: on }))
+  }, [])
+
+  const setSkTypes = useCallback((t: SkType[]) => {
+    setFilters((prev) => ({ ...prev, skTypes: t }))
+  }, [])
 
   const setDifficulty = useCallback((d: Difficulty) => {
     setFilters((prev) => ({ ...prev, difficulty: d }))
@@ -248,20 +266,17 @@ export function useGame(): UseGameReturn {
     setFilters((prev) => ({ ...prev, genres: g }))
   }, [])
 
-  const setLang = useCallback((l: 'sk' | 'en') => {
-    setFilters((prev) => ({ ...prev, lang: l, genres: ALL_GENRES }))
-  }, [])
-
   return {
     gameState,
     filters,
     filteredSongs,
-    allSongsForLang,
+    allSongsForMode,
     audio,
     actions: {
+      setSkMode,
+      setSkTypes,
       setDifficulty,
       setGenres,
-      setLang,
       playClip,
       playFull,
       submitGuess,

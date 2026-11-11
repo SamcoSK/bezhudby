@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────
-// Core domain types for Nápev
+// Core domain types for Bezhudby
 // ─────────────────────────────────────────────
 
 export type Lang = 'sk' | 'en'
@@ -16,14 +16,29 @@ export type Genre =
 
 export type Difficulty = 'easy' | 'medium' | 'hard'
 
+/** Type of Slovak song: modern (2010+), OG classic (pre-2010), or folk (ľudová) */
+export type SkType = 'modern' | 'og' | 'folk'
+
 export interface Song {
   id: string
   title: string
+  /** For folk songs, set artist to "ľudová pieseň" */
   artist: string
   lang: Lang
-  genre: Genre
-  difficulty: Difficulty
-  /** Path relative to public/, e.g. /audio/shape-of-you.mp3 */
+  /** Only used for English songs */
+  genre?: Genre
+  /** Only used for English songs */
+  difficulty?: Difficulty
+  /** Slovak songs only: "modern" | "og" | "folk" */
+  skType?: SkType
+  /**
+   * For folk songs: optional performer name (e.g. choir or ensemble).
+   * Display as "(Performer)" in the guess list.
+   */
+  performer?: string
+  /** Optional verification/TODO note */
+  comment?: string
+  /** URL or path relative to public/, e.g. /audio/shape-of-you.mp3 */
   audio: string
   /** Start offset in seconds for the clip (default: 0) */
   clipStart?: number
@@ -63,8 +78,13 @@ export interface GameState {
 // ─────────────────────────────────────────────
 
 export interface Filters {
-  lang: 'sk' | 'en'
-  genres: Genre[]          // only used when lang === 'en'
+  /** true = SK mode (skTypes active), false = EN mode (genres + difficulty active) */
+  skMode: boolean
+  /** Active SK types (only when skMode === true) */
+  skTypes: SkType[]
+  /** Active EN genres (only when skMode === false) */
+  genres: Genre[]
+  /** Active EN difficulty (only when skMode === false) */
   difficulty: Difficulty
 }
 
@@ -83,7 +103,15 @@ export interface DifficultyStats {
   distribution: GuessDistribution
 }
 
-export type AllStats = Record<Difficulty, DifficultyStats>
+/**
+ * Stats are stored per category:
+ *  - 'sk'    = all Slovak songs combined
+ *  - 'easy'  = EN easy
+ *  - 'medium'= EN medium
+ *  - 'hard'  = EN hard
+ */
+export type StatsCategory = Difficulty | 'sk'
+export type AllStats = Record<StatsCategory, DifficultyStats>
 
 // ─────────────────────────────────────────────
 // Genre display info
@@ -103,6 +131,14 @@ export const GENRE_LABELS: Record<Genre, string> = {
 export const ALL_GENRES: Genre[] = [
   'pop', 'rock', 'hiphop', 'rnb', 'electronic', 'metal', 'country', 'indie',
 ]
+
+export const SK_TYPE_LABELS: Record<SkType, string> = {
+  modern: 'Moderné',
+  og: 'OG',
+  folk: 'Ľudovky',
+}
+
+export const ALL_SK_TYPES: SkType[] = ['modern', 'og', 'folk']
 
 export const DIFFICULTY_LABELS: Record<Difficulty, string> = {
   easy: 'Ľahká',

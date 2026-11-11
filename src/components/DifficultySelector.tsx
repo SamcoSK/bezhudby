@@ -4,6 +4,8 @@ import { DIFFICULTY_LABELS } from '../types'
 interface DifficultySelectorProps {
   current: Difficulty
   onChange: (d: Difficulty) => void
+  /** When true, the selector is hidden but reserves its space in the layout */
+  hidden?: boolean
 }
 
 const DIFFICULTIES: Difficulty[] = ['easy', 'medium', 'hard']
@@ -14,9 +16,9 @@ const DIFFICULTY_DESC: Record<Difficulty, string> = {
   hard: 'Underground & vzácne kúsky',
 }
 
-export default function DifficultySelector({ current, onChange }: DifficultySelectorProps) {
+export default function DifficultySelector({ current, onChange, hidden = false }: DifficultySelectorProps) {
   return (
-    <fieldset>
+    <fieldset aria-hidden={hidden} style={{ visibility: hidden ? 'hidden' : 'visible' }}>
       <legend className="sr-only">Obtiažnosť</legend>
       <div className="grid grid-cols-3 gap-2">
         {DIFFICULTIES.map((d) => {
@@ -24,9 +26,11 @@ export default function DifficultySelector({ current, onChange }: DifficultySele
           return (
             <button
               key={d}
-              onClick={() => onChange(d)}
+              onClick={() => !hidden && onChange(d)}
+              disabled={hidden}
+              tabIndex={hidden ? -1 : undefined}
               aria-pressed={isActive}
-              title={DIFFICULTY_DESC[d]}
+              title={hidden ? undefined : DIFFICULTY_DESC[d]}
               className={[
                 'flex flex-col items-center gap-0.5 px-3 py-2.5 rounded-xl border text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-200',
                 isActive

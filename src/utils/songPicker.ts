@@ -1,4 +1,4 @@
-import type { Song, Lang, Genre, Difficulty } from '../types'
+import type { Song, Lang, Genre, Difficulty, SkType } from '../types'
 import { CLIP_DURATIONS } from '../types'
 
 // ─────────────────────────────────────────────
@@ -6,7 +6,43 @@ import { CLIP_DURATIONS } from '../types'
 // ─────────────────────────────────────────────
 
 /**
- * Returns songs matching the given language, genres (for EN), and difficulty.
+ * Returns EN songs matching the given genres and difficulty.
+ */
+export function filterEnSongs(
+  songs: Song[],
+  genres: Genre[],
+  difficulty: Difficulty,
+): Song[] {
+  return songs.filter((s) => {
+    if (!s.title || !s.artist) return false
+    if (!s.audio || s.audio.includes('fallback')) return false
+    if (s.lang !== 'en') return false
+    if (s.difficulty !== difficulty) return false
+    if (genres.length > 0 && s.genre && !genres.includes(s.genre)) return false
+    return true
+  })
+}
+
+/**
+ * Returns SK songs matching the given skTypes.
+ */
+export function filterSkSongs(
+  songs: Song[],
+  skTypes: SkType[],
+): Song[] {
+  if (skTypes.length === 0) return []
+  return songs.filter((s) => {
+    if (!s.title || !s.artist) return false
+    if (!s.audio || s.audio.includes('fallback')) return false
+    if (s.lang !== 'sk') return false
+    if (skTypes.length > 0 && !skTypes.includes(s.skType ?? 'modern')) return false
+    return true
+  })
+}
+
+/**
+ * Legacy unified filter – kept for backward compat with tests.
+ * @deprecated Use filterEnSongs / filterSkSongs directly.
  */
 export function filterSongs(
   songs: Song[],
@@ -14,14 +50,10 @@ export function filterSongs(
   genres: Genre[],
   difficulty: Difficulty,
 ): Song[] {
-  return songs.filter((s) => {
-    // Exclude songs without real playable audio
-    if (!s.audio || s.audio.includes('fallback')) return false
-    if (s.difficulty !== difficulty) return false
-    if (s.lang !== lang) return false
-    if (lang === 'en' && genres.length > 0 && !genres.includes(s.genre)) return false
-    return true
-  })
+  if (lang === 'sk') {
+    return filterSkSongs(songs, ['modern', 'og', 'folk'])
+  }
+  return filterEnSongs(songs, genres, difficulty)
 }
 
 // ─────────────────────────────────────────────

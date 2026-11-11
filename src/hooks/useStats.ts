@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import type { AllStats, Difficulty, DifficultyStats, GuessDistribution } from '../types'
+import type { AllStats, StatsCategory, DifficultyStats, GuessDistribution } from '../types'
 import { getItem, setItem, STORAGE_KEYS } from '../utils/storage'
 
 const DEFAULT_DIFFICULTY_STATS: DifficultyStats = {
@@ -11,35 +11,39 @@ const DEFAULT_DIFFICULTY_STATS: DifficultyStats = {
 }
 
 const DEFAULT_STATS: AllStats = {
-  easy: { ...DEFAULT_DIFFICULTY_STATS, distribution: {} as GuessDistribution },
+  sk:     { ...DEFAULT_DIFFICULTY_STATS, distribution: {} as GuessDistribution },
+  easy:   { ...DEFAULT_DIFFICULTY_STATS, distribution: {} as GuessDistribution },
   medium: { ...DEFAULT_DIFFICULTY_STATS, distribution: {} as GuessDistribution },
-  hard: { ...DEFAULT_DIFFICULTY_STATS, distribution: {} as GuessDistribution },
+  hard:   { ...DEFAULT_DIFFICULTY_STATS, distribution: {} as GuessDistribution },
 }
 
 export interface UseStatsReturn {
   getStats: () => AllStats
-  recordResult: (difficulty: Difficulty, won: boolean, attemptNumber?: number) => void
+  recordResult: (category: StatsCategory, won: boolean, attemptNumber?: number) => void
   resetStats: () => void
 }
 
 export function useStats(): UseStatsReturn {
   const getStats = useCallback((): AllStats => {
-    return getItem<AllStats>(STORAGE_KEYS.STATS, DEFAULT_STATS)
+    const stored = getItem<AllStats>(STORAGE_KEYS.STATS, DEFAULT_STATS)
+    // Ensure 'sk' key exists for older stored data that may not have it
+    if (!stored.sk) stored.sk = { ...DEFAULT_DIFFICULTY_STATS, distribution: {} }
+    return stored
   }, [])
 
   /**
    * Record a game result.
-   * @param difficulty  The difficulty the game was played on
+   * @param category   'sk' | 'easy' | 'medium' | 'hard'
    * @param won         Whether the player guessed correctly
    * @param attemptNumber  1-based attempt on which they guessed (undefined if lost)
    */
   const recordResult = useCallback((
-    difficulty: Difficulty,
+    category: StatsCategory,
     won: boolean,
     attemptNumber?: number,
   ) => {
     const stats = getStats()
-    const ds = stats[difficulty] ?? { ...DEFAULT_DIFFICULTY_STATS }
+    const ds = stats[category] ?? { ...DEFAULT_DIFFICULTY_STATS }
 
     ds.played += 1
 
@@ -54,7 +58,7 @@ export function useStats(): UseStatsReturn {
       ds.currentStreak = 0
     }
 
-    stats[difficulty] = ds
+    stats[category] = ds
     setItem(STORAGE_KEYS.STATS, stats)
   }, [getStats])
 
