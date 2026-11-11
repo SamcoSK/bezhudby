@@ -4,8 +4,8 @@ import { DIFFICULTY_LABELS } from '../types'
 interface DifficultySelectorProps {
   current: Difficulty
   onChange: (d: Difficulty) => void
-  /** When true, the selector is hidden but reserves its space in the layout */
-  hidden?: boolean
+  /** When true, locked to easy with medium/hard disabled & greyed out (Slovak mode) */
+  isSkMode?: boolean
 }
 
 const DIFFICULTIES: Difficulty[] = ['easy', 'medium', 'hard']
@@ -16,30 +16,51 @@ const DIFFICULTY_DESC: Record<Difficulty, string> = {
   hard: 'Underground & vzácne kúsky',
 }
 
-export default function DifficultySelector({ current, onChange, hidden = false }: DifficultySelectorProps) {
+export default function DifficultySelector({
+  current,
+  onChange,
+  isSkMode = false,
+}: DifficultySelectorProps) {
+  // In Slovak mode, "Ľahká" is permanently active
+  const activeDifficulty = isSkMode ? 'easy' : current
+
   return (
-    <fieldset aria-hidden={hidden} style={{ visibility: hidden ? 'hidden' : 'visible' }}>
+    <fieldset aria-label="Obtiažnosť">
       <legend className="sr-only">Obtiažnosť</legend>
       <div className="grid grid-cols-3 gap-2">
         {DIFFICULTIES.map((d) => {
-          const isActive = current === d
+          const isActive = activeDifficulty === d
+          const isDisabled = isSkMode && d !== 'easy'
+          const isLocked = isSkMode && d === 'easy'
+
           return (
             <button
               key={d}
-              onClick={() => !hidden && onChange(d)}
-              disabled={hidden}
-              tabIndex={hidden ? -1 : undefined}
+              onClick={() => {
+                if (isSkMode) return
+                onChange(d)
+              }}
+              disabled={isDisabled}
               aria-pressed={isActive}
-              title={hidden ? undefined : DIFFICULTY_DESC[d]}
+              aria-disabled={isDisabled || isLocked}
+              title={
+                isDisabled
+                  ? 'V slovenskom režime je dostupná len ľahká obtiažnosť'
+                  : DIFFICULTY_DESC[d]
+              }
               className={[
-                'flex flex-col items-center gap-0.5 px-3 py-2.5 rounded-xl border text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-200',
-                isActive
+                'flex flex-col items-center gap-0.5 px-3 py-2.5 rounded-xl border text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-200 select-none',
+                isDisabled
+                  ? 'opacity-40 bg-slate-100 dark:bg-slate-800/40 border-slate-300 dark:border-slate-700/50 text-slate-400 dark:text-slate-500 cursor-not-allowed'
+                  : isActive
                   ? 'bg-gradient-to-r from-vice-hotpink to-vice-purple border-vice-pink text-white shadow-neon-pink scale-[1.02]'
-                  : 'bg-vice-card/70 border-vice-border text-purple-300 hover:border-vice-cyan hover:text-vice-cyan',
+                  : 'bg-white/90 dark:bg-vice-card/70 border-purple-200 dark:border-vice-border text-purple-800 dark:text-purple-300 hover:border-vice-pink dark:hover:border-vice-cyan hover:text-vice-hotpink dark:hover:text-vice-cyan shadow-sm',
               ].join(' ')}
             >
               <span>{DIFFICULTY_LABELS[d]}</span>
-              <span className="text-[10px] font-medium opacity-80 hidden sm:block normal-case tracking-normal">{DIFFICULTY_DESC[d]}</span>
+              <span className="text-[10px] font-medium opacity-80 hidden sm:block normal-case tracking-normal">
+                {isDisabled ? 'Nedostupné pre SK' : DIFFICULTY_DESC[d]}
+              </span>
             </button>
           )
         })}

@@ -50,7 +50,7 @@ export default function FilterBar({
 
       {/* ── Row 2: Žáner chips (Slovak types OR English genres) ──────────────── */}
       <div className="flex flex-wrap gap-2 items-center" role="group" aria-label="Žáner">
-        <span className="text-xs text-purple-400 font-semibold uppercase tracking-wider mr-1">Žáner:</span>
+        <span className="text-xs text-purple-700 dark:text-purple-400 font-semibold uppercase tracking-wider mr-1">Žáner:</span>
 
         {skMode ? (
           /* Slovak type chips */

@@ -69,7 +69,7 @@ export default function GameScreen() {
       {/* ── Settings row ──────────────────────────────────────────────────── */}
       <div className="flex flex-col gap-4">
         <div className="flex items-center justify-between gap-2">
-          <h1 className="text-xs font-black text-vice-cyan uppercase tracking-widest font-display drop-shadow-[0_0_8px_rgba(0,240,255,0.4)]">
+          <h1 className="text-xs font-black text-purple-900 dark:text-vice-cyan uppercase tracking-widest font-display dark:drop-shadow-[0_0_8px_rgba(0,240,255,0.4)]">
             🌴 VÝBER STANICE &amp; OBTIAŽNOSTI
           </h1>
           <button
@@ -81,11 +81,11 @@ export default function GameScreen() {
           </button>
         </div>
 
-        {/* Difficulty – hidden in SK mode but space is reserved */}
+        {/* Difficulty – always visible; in Slovak mode, "Ľahká" is active and others are greyed out */}
         <DifficultySelector
           current={filters.difficulty}
           onChange={actions.setDifficulty}
-          hidden={filters.skMode}
+          isSkMode={filters.skMode}
         />
 
         <FilterBar
@@ -98,23 +98,23 @@ export default function GameScreen() {
       </div>
 
       {/* ── Divider ───────────────────────────────────────────────────────── */}
-      <hr className="border-vice-border/50" />
+      <hr className="border-purple-200 dark:border-vice-border/50" />
 
       {/* ── Empty state ───────────────────────────────────────────────────── */}
       {isEmpty ? (
         <div className="card p-8 text-center flex flex-col gap-3">
           <div className="text-4xl" aria-hidden="true">📻</div>
-          <p className="font-bold text-white font-display uppercase tracking-wide">
+          <p className="font-bold text-slate-900 dark:text-white font-display uppercase tracking-wide">
             Pre tento výber zatiaľ nie sú skladby.
           </p>
-          <p className="text-xs text-purple-300">
+          <p className="text-xs text-purple-600 dark:text-purple-300">
             Skús iný typ, žáner alebo obtiažnosť.
           </p>
         </div>
       ) : (
         <>
           {/* ── Game area ─────────────────────────────────────────────────── */}
-          <div className="card p-5 sm:p-6 flex flex-col gap-5 border-vice-pink/30 shadow-neon-pink/30">
+          <div className="card p-5 sm:p-6 flex flex-col gap-5 border-vice-pink/30 shadow-sm dark:shadow-neon-pink/30">
             {/* Live indicator */}
             {phase === 'playing' && (
               <div className="flex justify-end">

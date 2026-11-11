@@ -73,7 +73,7 @@ export default function AudioPlayer({
 
       {/* ── Progress / segment bar ───────────────────────────────────────── */}
       <div
-        className="flex gap-1.5 items-stretch p-1 rounded-xl bg-vice-dark/80 border border-vice-border/60"
+        className="flex gap-1.5 items-stretch p-1.5 rounded-xl bg-purple-100/70 dark:bg-vice-dark/80 border border-purple-200 dark:border-vice-border/60 shadow-inner"
         role="progressbar"
         aria-valuemin={0}
         aria-valuemax={MAX_DURATION}
@@ -93,8 +93,8 @@ export default function AudioPlayer({
                 isUnlocked
                   ? isCurrent
                     ? 'bg-gradient-to-r from-vice-hotpink to-vice-cyan shadow-neon-pink'
-                    : 'bg-vice-hotpink/60'
-                  : 'bg-purple-950/40 border border-purple-900/30',
+                    : 'bg-vice-hotpink/80 dark:bg-vice-hotpink/60'
+                  : 'bg-purple-200/50 dark:bg-purple-950/40 border border-purple-300/40 dark:border-purple-900/30',
                 isPlaying && isCurrent ? 'progress-playing' : '',
               ].join(' ')}
               style={{ flex: `${segWidth} 0 0`, height: '10px' }}
@@ -105,10 +105,10 @@ export default function AudioPlayer({
       </div>
 
       {/* ── Duration label ───────────────────────────────────────────────── */}
-      <div className="flex justify-between text-xs text-purple-300/60 font-semibold px-0.5">
+      <div className="flex justify-between text-xs text-purple-700/70 dark:text-purple-300/60 font-semibold px-0.5">
         <span>0 s</span>
         {attempt < CLIP_DURATIONS.length - 1 && (
-          <span className="text-vice-cyan font-bold drop-shadow-[0_0_6px_rgba(0,240,255,0.4)]">
+          <span className="text-purple-900 dark:text-vice-cyan font-bold dark:drop-shadow-[0_0_6px_rgba(0,240,255,0.4)]">
             +{skipBonus} s pri preskočení
           </span>
         )}

@@ -9,17 +9,17 @@ const STATUS_ICON: Record<string, { icon: string; label: string; classes: string
   correct: {
     icon: '✓',
     label: 'Správne',
-    classes: 'bg-vice-cyan/20 text-vice-cyan border-vice-cyan/60 shadow-[0_0_12px_rgba(0,240,255,0.3)]',
+    classes: 'bg-emerald-500/15 text-emerald-700 dark:bg-vice-cyan/20 dark:text-vice-cyan border-emerald-500/40 dark:border-vice-cyan/60 dark:shadow-[0_0_12px_rgba(0,240,255,0.3)]',
   },
   wrong: {
     icon: '✗',
     label: 'Nesprávne',
-    classes: 'bg-vice-hotpink/20 text-vice-hotpink border-vice-hotpink/60 shadow-[0_0_12px_rgba(255,0,127,0.3)]',
+    classes: 'bg-rose-500/15 text-rose-700 dark:bg-vice-hotpink/20 dark:text-vice-hotpink border-rose-500/40 dark:border-vice-hotpink/60 dark:shadow-[0_0_12px_rgba(255,0,127,0.3)]',
   },
   skipped: {
     icon: '—',
     label: 'Preskočené',
-    classes: 'bg-purple-950/40 text-purple-400 border-purple-800/40',
+    classes: 'bg-purple-100 text-purple-600 dark:bg-purple-950/40 dark:text-purple-400 border-purple-200 dark:border-purple-800/40',
   },
 }
 
@@ -43,7 +43,7 @@ export default function GuessHistory({ guesses, maxAttempts }: GuessHistoryProps
             <span className="text-base font-black w-5 text-center shrink-0 drop-shadow-sm" aria-hidden="true">
               {icon}
             </span>
-            <span className={g.status === 'skipped' ? 'italic opacity-60 text-xs' : 'font-bold text-white'}>
+            <span className={g.status === 'skipped' ? 'italic opacity-60 text-xs' : 'font-bold text-slate-900 dark:text-white'}>
               {g.status === 'skipped' ? 'Preskočené' : g.value}
             </span>
             <span className="ml-auto text-xs opacity-75 font-mono shrink-0">{g.clipDuration} s</span>
@@ -55,11 +55,11 @@ export default function GuessHistory({ guesses, maxAttempts }: GuessHistoryProps
       {Array.from({ length: remaining }).map((_, idx) => (
         <li
           key={`empty-${idx}`}
-          className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl border border-dashed border-purple-900/40 bg-vice-dark/30 text-sm text-purple-700/50"
+          className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl border border-dashed border-purple-200 dark:border-purple-900/40 bg-purple-50/50 dark:bg-vice-dark/30 text-sm text-purple-400 dark:text-purple-700/50"
           aria-hidden="true"
         >
           <span className="w-5 text-center font-bold">·</span>
-          <span className="text-xs uppercase tracking-wider font-semibold opacity-40">Voľný slot</span>
+          <span className="text-xs uppercase tracking-wider font-semibold opacity-60 dark:opacity-40">Voľný slot</span>
         </li>
       ))}
     </ol>

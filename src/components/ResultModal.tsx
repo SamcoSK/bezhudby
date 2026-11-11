@@ -61,16 +61,16 @@ export default function ResultModal({
             {won ? 'ZÁSAH DO ČIERNEHO!' : 'MISIA ZLYHALA'}
           </h2>
           {won && attemptNumber > 0 && (
-            <p className="text-sm font-bold text-vice-cyan mt-1 drop-shadow-sm">
+            <p className="text-sm font-bold text-purple-700 dark:text-vice-cyan mt-1 drop-shadow-sm">
               Uhádnuté na {attemptNumber}. pokus!
             </p>
           )}
         </div>
 
         {/* Song info */}
-        <div className="bg-vice-card/90 border border-vice-border rounded-xl p-4 text-center shadow-inner">
-          <p className="text-xl font-black text-white font-display tracking-wide">{song.title}</p>
-          <p className="text-sm font-bold text-vice-cyan">
+        <div className="bg-purple-50/80 dark:bg-vice-card/90 border border-purple-200 dark:border-vice-border rounded-xl p-4 text-center shadow-inner">
+          <p className="text-xl font-black text-slate-900 dark:text-white font-display tracking-wide">{song.title}</p>
+          <p className="text-sm font-bold text-purple-700 dark:text-vice-cyan">
             {song.artist}{song.performer ? ` (${song.performer})` : ''}
           </p>
         </div>

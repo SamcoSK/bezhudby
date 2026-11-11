@@ -12,7 +12,12 @@
   }
 
   body {
-    background-color: #faf5ff;
+    background-color: #fbf7fe;
+    background-image: 
+      radial-gradient(circle at 10% 0%, rgba(255, 42, 133, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 90% 100%, rgba(0, 240, 255, 0.08) 0%, transparent 40%),
+      linear-gradient(to bottom, #ffffff, #f7f1fc);
+    background-attachment: fixed;
     color: #1e1135;
     font-family: 'Montserrat', sans-serif;
     min-height: 100dvh;
@@ -50,8 +55,15 @@
 
   .chip-inactive {
     background: #ffffff;
-    border-color: rgba(255, 42, 133, 0.2);
-    color: #7e22ce;
+    border-color: rgba(157, 0, 255, 0.2);
+    color: #6b21a8;
+    box-shadow: 0 1px 3px rgba(157, 0, 255, 0.05);
+  }
+
+  .chip-inactive:hover {
+    border-color: #ff007f;
+    color: #ff007f;
+    box-shadow: 0 0 10px rgba(255, 0, 127, 0.25);
   }
 
   html.dark .chip-inactive {
@@ -59,9 +71,10 @@
     border-color: rgba(255, 42, 133, 0.25);
     color: #c084fc;
     backdrop-filter: blur(8px);
+    box-shadow: none;
   }
 
-  .chip-inactive:hover {
+  html.dark .chip-inactive:hover {
     border-color: #00f0ff;
     color: #00f0ff;
     box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
@@ -95,8 +108,16 @@
            font-bold text-xs uppercase tracking-wider
            transition-all duration-200 disabled:opacity-40 disabled:pointer-events-none;
     background: #ffffff;
-    border: 1px solid rgba(157, 0, 255, 0.3);
-    color: #9d00ff;
+    border: 1px solid rgba(157, 0, 255, 0.25);
+    color: #7e22ce;
+    box-shadow: 0 1px 4px rgba(157, 0, 255, 0.08);
+  }
+
+  .btn-secondary:hover:not(:disabled) {
+    border-color: #ff007f;
+    color: #ff007f;
+    background: rgba(255, 0, 127, 0.05);
+    box-shadow: 0 0 12px rgba(255, 0, 127, 0.2);
   }
 
   html.dark .btn-secondary {
@@ -106,7 +127,7 @@
     box-shadow: 0 0 10px rgba(0, 240, 255, 0.15);
   }
 
-  .btn-secondary:hover:not(:disabled) {
+  html.dark .btn-secondary:hover:not(:disabled) {
     border-color: #00f0ff;
     color: #05d9e8;
     background: rgba(0, 240, 255, 0.1);
@@ -114,8 +135,8 @@
 
   .card {
     background: #ffffff;
-    border: 1px solid rgba(255, 42, 133, 0.2);
-    box-shadow: 0 4px 20px rgba(157, 0, 255, 0.08);
+    border: 1px solid rgba(157, 0, 255, 0.15);
+    box-shadow: 0 4px 24px rgba(157, 0, 255, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
     @apply rounded-2xl;
   }
 

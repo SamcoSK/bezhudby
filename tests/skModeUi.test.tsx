@@ -5,23 +5,28 @@ import FilterBar from '../src/components/FilterBar'
 import type { Filters } from '../src/types'
 import { ALL_GENRES } from '../src/types'
 
-describe('DifficultySelector - visibility in Slovak mode', () => {
-  it('reserves space and sets visibility: hidden when hidden=true (Slovak mode)', () => {
+describe('DifficultySelector - behavior in Slovak mode', () => {
+  it('locks to Easy and disables Medium and Hard in Slovak mode', () => {
     const html = renderToString(
-      <DifficultySelector current="easy" onChange={vi.fn()} hidden={true} />
+      <DifficultySelector current="hard" onChange={vi.fn()} isSkMode={true} />
     )
-    expect(html).toContain('visibility:hidden')
-    expect(html).toContain('aria-hidden="true"')
-    expect(html).toContain('disabled=""')
+    // All 3 difficulties are visible
+    expect(html).toContain('Ľahká')
+    expect(html).toContain('Stredná')
+    expect(html).toContain('Ťažká')
+    // Easy is active
+    expect(html).toContain('bg-gradient-to-r')
+    // Medium and Hard are disabled & greyed out
+    expect(html).toContain('cursor-not-allowed')
+    expect(html).toContain('Nedostupné pre SK')
   })
 
-  it('renders visible and interactive when hidden=false (English mode)', () => {
+  it('renders all options interactive when isSkMode is false (English mode)', () => {
     const html = renderToString(
-      <DifficultySelector current="easy" onChange={vi.fn()} hidden={false} />
+      <DifficultySelector current="medium" onChange={vi.fn()} isSkMode={false} />
     )
-    expect(html).toContain('visibility:visible')
-    expect(html).toContain('aria-hidden="false"')
-    expect(html).not.toContain('disabled=""')
+    expect(html).not.toContain('cursor-not-allowed')
+    expect(html).not.toContain('Nedostupné pre SK')
     expect(html).toContain('Ľahká')
     expect(html).toContain('Stredná')
     expect(html).toContain('Ťažká')

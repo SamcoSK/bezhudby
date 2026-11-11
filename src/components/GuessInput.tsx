@@ -130,8 +130,8 @@ export default function GuessInput({
               aria-activedescendant={activeIdx >= 0 ? `suggestion-${activeIdx}` : undefined}
               className={[
                 'w-full px-4 py-3 rounded-xl border text-sm font-medium',
-                'bg-vice-card/90 text-white placeholder-purple-300/40',
-                'border-vice-border focus:border-vice-cyan focus:ring-2 focus:ring-vice-cyan/50',
+                'bg-purple-50/70 dark:bg-vice-card/90 text-slate-900 dark:text-white placeholder-purple-400 dark:placeholder-purple-300/40',
+                'border-purple-200 dark:border-vice-border focus:border-vice-pink dark:focus:border-vice-cyan focus:ring-2 focus:ring-vice-pink/30 dark:focus:ring-vice-cyan/50',
                 'disabled:opacity-40 disabled:pointer-events-none transition-all shadow-inner',
                 selectedSong ? 'pr-10' : '',
               ].join(' ')}
@@ -140,7 +140,7 @@ export default function GuessInput({
             {selectedSong && (
               <button
                 onClick={clearSelection}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-purple-300 hover:text-vice-pink transition-colors"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-purple-400 dark:text-purple-300 hover:text-vice-pink transition-colors"
                 aria-label="Zrušiť výber"
                 tabIndex={0}
               >
@@ -168,10 +168,10 @@ export default function GuessInput({
             aria-label="Návrhy piesní"
             className={[
               'absolute z-20 left-0 right-0 mt-2',
-              'bg-vice-card/95 backdrop-blur-xl',
-              'border border-vice-pink/40',
-              'rounded-xl shadow-neon-pink overflow-auto max-h-56',
-              'animate-slide-up divide-y divide-purple-900/30',
+              'bg-white dark:bg-vice-card/95 backdrop-blur-xl',
+              'border border-purple-200 dark:border-vice-pink/40',
+              'rounded-xl shadow-xl dark:shadow-neon-pink overflow-auto max-h-56',
+              'animate-slide-up divide-y divide-purple-100 dark:divide-purple-900/30',
             ].join(' ')}
           >
             {suggestions.map((song, idx) => (
@@ -187,12 +187,12 @@ export default function GuessInput({
                 className={[
                   'px-4 py-2.5 cursor-pointer text-sm transition-colors',
                   idx === activeIdx
-                    ? 'bg-vice-pink/30 text-vice-cyan font-bold shadow-inner'
-                    : 'text-purple-100 hover:bg-vice-pink/20 hover:text-white',
+                    ? 'bg-purple-100 dark:bg-vice-pink/30 text-purple-900 dark:text-vice-cyan font-bold shadow-inner'
+                    : 'text-slate-800 dark:text-purple-100 hover:bg-purple-50 dark:hover:bg-vice-pink/20 hover:text-purple-900 dark:hover:text-white',
                 ].join(' ')}
               >
-                <span className="font-bold text-white">{song.title}</span>
-                <span className="text-purple-300/70">
+                <span className="font-bold text-slate-900 dark:text-white">{song.title}</span>
+                <span className="text-purple-700/80 dark:text-purple-300/70">
                   {' '}– {song.artist}{song.performer ? ` (${song.performer})` : ''}
                 </span>
               </li>
