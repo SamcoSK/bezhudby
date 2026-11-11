@@ -27,56 +27,32 @@ export default function FilterBar({
   }
 
   return (
-    <section aria-label="Filtre">
-      {/* ── Row 1: SK toggle + genre chips ─────────────────────────────────── */}
-      <div className="flex flex-wrap gap-2 items-center">
-        {/* Slovak mode toggle chip */}
+    <section aria-label="Filtre" className="flex flex-col gap-3">
+      {/* ── Row 1: Slovenské / Zahraničné toggle ─────────────────────────────── */}
+      <div className="flex gap-2" role="group" aria-label="Jazyk skladieb">
         <button
-          onClick={() => onSkModeChange(!skMode)}
-          className={`chip ${skMode ? 'chip-active' : 'chip-inactive'}`}
+          onClick={() => onSkModeChange(true)}
+          className={`chip flex-1 justify-center ${skMode ? 'chip-active' : 'chip-inactive'}`}
           aria-pressed={skMode}
-          aria-label="Len slovenské skladby"
         >
-          🇸🇰 Len slovenské
+          🇸🇰 Slovenské
         </button>
-
-        {/* Divider */}
-        <span className="text-slate-300 dark:text-slate-700 select-none" aria-hidden="true">|</span>
-
-        {/* Genre chips – visually disabled when SK mode is on */}
-        {ALL_GENRES.map((genre) => {
-          const active = !skMode && genres.includes(genre)
-          return (
-            <button
-              key={genre}
-              onClick={() => !skMode && onGenreToggle(genre)}
-              disabled={skMode}
-              className={`chip ${active ? 'chip-active' : 'chip-inactive'} ${skMode ? 'chip-disabled' : ''}`}
-              aria-pressed={active}
-              aria-label={`Žáner: ${GENRE_LABELS[genre]}`}
-            >
-              {GENRE_LABELS[genre]}
-            </button>
-          )
-        })}
-
-        {/* Select all genres shortcut */}
-        {!skMode && !isAllGenres && (
-          <button
-            onClick={onGenreSelectAll}
-            className="chip chip-inactive text-xs"
-            aria-label="Vybrať všetky žánre"
-          >
-            Všetky
-          </button>
-        )}
+        <button
+          onClick={() => onSkModeChange(false)}
+          className={`chip flex-1 justify-center ${!skMode ? 'chip-active' : 'chip-inactive'}`}
+          aria-pressed={!skMode}
+        >
+          🌍 Zahraničné
+        </button>
       </div>
 
-      {/* ── Row 2: SK type chips (only visible in SK mode) ─────────────────── */}
-      {skMode && (
-        <div className="flex flex-wrap gap-2 items-center mt-2" role="group" aria-label="Typ slovenských skladieb">
-          <span className="text-xs text-purple-400 font-semibold uppercase tracking-wider mr-1">Typ:</span>
-          {ALL_SK_TYPES.map((t) => {
+      {/* ── Row 2: Žáner chips (Slovak types OR English genres) ──────────────── */}
+      <div className="flex flex-wrap gap-2 items-center" role="group" aria-label="Žáner">
+        <span className="text-xs text-purple-400 font-semibold uppercase tracking-wider mr-1">Žáner:</span>
+
+        {skMode ? (
+          /* Slovak type chips */
+          ALL_SK_TYPES.map((t) => {
             const active = skTypes.includes(t)
             const isLast = skTypes.length === 1 && active
             return (
@@ -86,15 +62,43 @@ export default function FilterBar({
                 disabled={isLast}
                 className={`chip ${active ? 'chip-active' : 'chip-inactive'} ${isLast ? 'opacity-60 cursor-not-allowed' : ''}`}
                 aria-pressed={active}
-                aria-label={`Typ: ${SK_TYPE_LABELS[t]}${isLast ? ' (posledný aktívny, nedá sa vypnúť)' : ''}`}
+                aria-label={`${SK_TYPE_LABELS[t]}${isLast ? ' (posledný aktívny, nedá sa vypnúť)' : ''}`}
                 title={isLast ? 'Aspoň jeden typ musí ostať aktívny' : undefined}
               >
                 {SK_TYPE_LABELS[t]}
               </button>
             )
-          })}
-        </div>
-      )}
+          })
+        ) : (
+          /* English genre chips */
+          <>
+            {ALL_GENRES.map((genre) => {
+              const active = genres.includes(genre)
+              return (
+                <button
+                  key={genre}
+                  onClick={() => onGenreToggle(genre)}
+                  className={`chip ${active ? 'chip-active' : 'chip-inactive'}`}
+                  aria-pressed={active}
+                  aria-label={`Žáner: ${GENRE_LABELS[genre]}`}
+                >
+                  {GENRE_LABELS[genre]}
+                </button>
+              )
+            })}
+            {/* Select all genres shortcut */}
+            {!isAllGenres && (
+              <button
+                onClick={onGenreSelectAll}
+                className="chip chip-inactive text-xs"
+                aria-label="Vybrať všetky žánre"
+              >
+                Všetky
+              </button>
+            )}
+          </>
+        )}
+      </div>
     </section>
   )
 }

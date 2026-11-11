@@ -49,8 +49,12 @@ describe('FilterBar - SK mode and skType chips', () => {
     expect(html).toContain('Moderné')
     expect(html).toContain('OG')
     expect(html).toContain('Ľudovky')
-    // Genre chips should be disabled when skMode is true
-    expect(html).toContain('chip-disabled')
+    // In new UI, EN genre chips are hidden entirely in SK mode (not disabled)
+    // The SK toggle button should be chip-active
+    expect(html).toContain('chip-active')
+    // No EN genre names should appear in SK mode
+    expect(html).not.toContain('Hip-hop')
+    expect(html).not.toContain('Elektronika')
   })
 
   it('hides SK type chips when skMode is false', () => {
@@ -63,7 +67,12 @@ describe('FilterBar - SK mode and skType chips', () => {
         onGenreSelectAll={vi.fn()}
       />
     )
+    // SK type chips not shown in English mode
     expect(html).not.toContain('Typ slovenských skladieb')
+    // EN genre chips should appear
+    expect(html).toContain('Hip-hop')
+    expect(html).toContain('Elektronika')
+    // No chip-disabled in English mode
     expect(html).not.toContain('chip-disabled')
   })
 
