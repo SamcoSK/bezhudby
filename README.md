@@ -145,6 +145,90 @@ bezhudby/
 
 ---
 
+## 🔐 Firebase Auth – nastavenie
+
+Hra podporuje prihlásenie cez Google a e-mail/heslo (Firebase Authentication) s ukladaním štatistík do Cloud Firestore. Bez konfigurácie funguje plne ako hosť (localStorage).
+
+### 1. Vytvor Firebase projekt
+
+1. Choď na [console.firebase.google.com](https://console.firebase.google.com)
+2. Vytvor nový projekt (napr. `bezhudby`)
+3. Zapni **Authentication → Sign-in method**:
+   - ✅ Google
+   - ✅ E-mail / Heslo
+4. V **Authentication → Settings → Authorized domains** pridaj:
+   - `localhost`
+   - tvoja Netlify doména (napr. `bezhudby.netlify.app`)
+5. Vytvor **Firestore Database** (Production mode)
+
+### 2. Nastav premenné prostredia
+
+```bash
+cp .env.example .env
+```
+
+V `.env` vyplň skutočné hodnoty (nájdeš ich v Firebase Console → Project Settings → Your apps → Web app):
+
+```
+VITE_FIREBASE_API_KEY=AIzaSy...
+VITE_FIREBASE_AUTH_DOMAIN=bezhudby.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=bezhudby
+VITE_FIREBASE_APP_ID=1:123456:web:abc123
+```
+
+> ⚠️ Súbor `.env` je v `.gitignore` – **nikdy ho nepushuj** do repozitára!
+
+### 3. Nastav Netlify environment variables
+
+V Netlify → Site → Site configuration → Environment variables pridaj rovnaké 4 premenné ako v `.env`.
+
+### 4. Nasaď Firestore pravidlá
+
+```bash
+npm install -g firebase-tools
+firebase login
+firebase init firestore   # vyber existujúci projekt, použi firestore.rules
+firebase deploy --only firestore:rules
+```
+
+### 5. Štruktúra Firestore
+
+```
+users/{uid}
+  stats:
+    sk:     { played, won, currentStreak, bestStreak, distribution }
+    easy:   { ... }
+    medium: { ... }
+    hard:   { ... }
+  filters:  { skMode, skTypes, genres, difficulty }
+  migrated: boolean
+  updatedAt: timestamp
+```
+
+---
+
+## Štruktúra projektu
+
+```
+bezhudby/
+├── src/
+│   ├── data/songs.json     # databáza skladieb s online audio URL
+│   ├── components/         # React komponenty (App, GameScreen, AuthModal, UserMenu…)
+│   ├── hooks/              # useGame, useAudio, useStats
+│   ├── lib/                # firebase.ts, auth.ts, firestore.ts, AuthContext.tsx
+│   ├── utils/              # normalize, songPicker, storage
+│   └── types/index.ts      # TypeScript typy
+├── scripts/
+│   ├── fetch-online-previews.ts # automatický vyhľadávač iTunes ukážok
+│   └── validate-songs.ts        # CLI validátor
+├── tests/                  # Vitest unit testy
+├── public/privacy.html     # Zásady ochrany súkromia (šablóna)
+├── firestore.rules         # Firestore bezpečnostné pravidlá
+└── .env.example            # Šablóna premenných prostredia
+```
+
+---
+
 ## Licencia
 
 MIT

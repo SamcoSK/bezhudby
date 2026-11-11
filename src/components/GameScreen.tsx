@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useGame } from '../hooks/useGame'
 import { useStats } from '../hooks/useStats'
+import { useAuthContext } from '../lib/AuthContext'
 import { ALL_GENRES } from '../types'
 import type { Genre, SkType } from '../types'
 import FilterBar from './FilterBar'
@@ -12,8 +13,9 @@ import ResultModal from './ResultModal'
 import StatsModal from './StatsModal'
 
 export default function GameScreen() {
+  const { user } = useAuthContext()
   const { gameState, filters, filteredSongs, allSongsForMode, audio, actions } = useGame()
-  const { getStats, recordResult, resetStats } = useStats()
+  const { getStats, recordResult, resetStats } = useStats(user)
   const [showStats, setShowStats] = useState(false)
 
   const { currentSong, guesses, attempt, phase, isPlaying } = gameState
@@ -33,7 +35,7 @@ export default function GameScreen() {
     const attemptNumber = correctGuess ? guesses.indexOf(correctGuess) + 1 : undefined
     // SK songs all go into the 'sk' stats category
     const category = filters.skMode ? 'sk' : filters.difficulty
-    recordResult(category, won, attemptNumber)
+    void recordResult(category, won, attemptNumber)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEnded])
 
@@ -170,7 +172,7 @@ export default function GameScreen() {
           stats={getStats()}
           currentCategory={filters.skMode ? 'sk' : filters.difficulty}
           onClose={() => setShowStats(false)}
-          onReset={() => { resetStats(); setShowStats(false) }}
+          onReset={() => { void resetStats(); setShowStats(false) }}
         />
       )}
     </div>

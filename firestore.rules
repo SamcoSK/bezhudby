@@ -1,0 +1,43 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Users can only read/write their own document
+    match /users/{uid} {
+      allow read, write: if request.auth != null
+        && request.auth.uid == uid
+        && validateUserDoc(request.resource.data);
+    }
+
+    // Everything else is denied
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+
+  function validateUserDoc(data) {
+    // Only allow known top-level keys
+    return data.keys().hasOnly(['stats', 'filters', 'migrated', 'updatedAt'])
+      // stats must be a map
+      && data.stats is map
+      // No negative numbers in top-level stats categories
+      && validateAllStats(data.stats);
+  }
+
+  function validateAllStats(stats) {
+    return stats.keys().hasOnly(['sk', 'easy', 'medium', 'hard'])
+      && validateCategory(stats.sk)
+      && validateCategory(stats.easy)
+      && validateCategory(stats.medium)
+      && validateCategory(stats.hard);
+  }
+
+  function validateCategory(cat) {
+    return cat is map
+      && cat.played is int && cat.played >= 0
+      && cat.won is int && cat.won >= 0
+      && cat.currentStreak is int && cat.currentStreak >= 0
+      && cat.bestStreak is int && cat.bestStreak >= 0
+      && cat.distribution is map;
+  }
+}
