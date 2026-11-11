@@ -16,7 +16,9 @@ export default function FilterBar({
   onGenreToggle,
   onGenreSelectAll,
 }: FilterBarProps) {
-  const { skMode, skTypes, genres } = filters
+  const skMode = Boolean(filters?.skMode)
+  const skTypes = Array.isArray(filters?.skTypes) && filters.skTypes.length > 0 ? filters.skTypes : ALL_SK_TYPES
+  const genres = Array.isArray(filters?.genres) && filters.genres.length > 0 ? filters.genres : ALL_GENRES
 
   const isAllGenres = genres.length === ALL_GENRES.length
 

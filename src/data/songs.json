@@ -54291,7 +54291,7 @@
     "lang": "en",
     "genre": "pop",
     "difficulty": "easy",
-    "audio": "/audio/call-me-maybe-cjepsen.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/5e/0b/c4/5e0bc4b4-51fb-c992-4953-8cc13ecfb773/mzaf_4904797060238555261.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54301,7 +54301,7 @@
     "lang": "en",
     "genre": "electronic",
     "difficulty": "hard",
-    "audio": "/audio/marshmello-keep-it-mello.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/05/be/ae/05beae94-4c4e-f0be-b2b4-c585dc994c89/mzaf_18070651568599924489.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54311,7 +54311,7 @@
     "lang": "en",
     "genre": "electronic",
     "difficulty": "hard",
-    "audio": "/audio/marshmello-blocks.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/9b/52/42/9b524276-5715-3491-3de4-7e7f8ccd1c01/mzaf_5114401921881455524.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54321,7 +54321,7 @@
     "lang": "en",
     "genre": "electronic",
     "difficulty": "hard",
-    "audio": "/audio/marshmello-flashback.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/66/13/aa/6613aa11-fa12-2f28-81f4-401f7987a1c9/mzaf_12401359484819023933.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54331,7 +54331,7 @@
     "lang": "en",
     "genre": "electronic",
     "difficulty": "medium",
-    "audio": "/audio/marshmello-ritual.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/a8/30/a4/a830a4af-ae42-7592-f4dc-e792cf892ebf/mzaf_16262972081091777443.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54341,7 +54341,7 @@
     "lang": "en",
     "genre": "electronic",
     "difficulty": "medium",
-    "audio": "/audio/marshmello-here-with-me.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/b3/af/19/b3af191d-e300-00ac-5283-4c6db2b3c977/mzaf_2957856479963987572.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54351,7 +54351,7 @@
     "lang": "en",
     "genre": "rap",
     "difficulty": "easy",
-    "audio": "/audio/don-toliver-way-big.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/0d/4f/0f/0d4f0f87-a930-c4c9-99e8-0edce8e4f91a/mzaf_7455232474434756947.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54361,7 +54361,7 @@
     "lang": "en",
     "genre": "rap",
     "difficulty": "easy",
-    "audio": "/audio/don-toliver-cant-feel-legs.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/50/13/7c/50137cfa-ef2f-5961-692c-f16ad9dfd5b7/mzaf_3843823517830343632.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54371,7 +54371,7 @@
     "lang": "en",
     "genre": "rap",
     "difficulty": "easy",
-    "audio": "/audio/don-toliver-company.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/e3/3f/99/e33f99e9-b5aa-a4b2-aa40-61bd90ef2480/mzaf_8154124235516993340.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54381,7 +54381,7 @@
     "lang": "en",
     "genre": "rap",
     "difficulty": "easy",
-    "audio": "/audio/don-toliver-drugs-melodies.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/e0/26/52/e0265266-cab7-7dfa-9110-bb79473b6012/mzaf_13237706629786454614.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54391,7 +54391,7 @@
     "lang": "en",
     "genre": "rap",
     "difficulty": "medium",
-    "audio": "/audio/don-toliver-what-you-need.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/9f/5f/fb/9f5ffbdf-bbe2-fd30-b186-b301a04f5ecc/mzaf_12510925240387351173.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54401,7 +54401,7 @@
     "lang": "en",
     "genre": "rap",
     "difficulty": "medium",
-    "audio": "/audio/don-toliver-after-party.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/50/13/7c/50137cfa-ef2f-5961-692c-f16ad9dfd5b7/mzaf_3843823517830343632.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54411,17 +54411,7 @@
     "lang": "en",
     "genre": "rap",
     "difficulty": "medium",
-    "audio": "/audio/don-toliver-do-it-right.mp3",
-    "clipStart": 0
-  },
-  {
-    "id": "don-toliver-aeternidad",
-    "title": "AETERNIDAD",
-    "artist": "Don Toliver",
-    "lang": "en",
-    "genre": "rap",
-    "difficulty": "medium",
-    "audio": "/audio/don-toliver-aeternidad.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/c5/06/ba/c506babd-467e-07af-75d0-dde1b061cbd8/mzaf_1530172345127975736.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54431,7 +54421,7 @@
     "lang": "en",
     "genre": "rap",
     "difficulty": "medium",
-    "audio": "/audio/don-toliver-roger-that.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/62/70/83/62708320-c29a-05c1-444e-f54a4dc11b78/mzaf_180909787822676774.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54441,27 +54431,7 @@
     "lang": "en",
     "genre": "rap",
     "difficulty": "medium",
-    "audio": "/audio/don-toliver-swear.mp3",
-    "clipStart": 0
-  },
-  {
-    "id": "don-toliver-coming-2-america",
-    "title": "Coming 2 America",
-    "artist": "Don Toliver",
-    "lang": "en",
-    "genre": "rap",
-    "difficulty": "hard",
-    "audio": "/audio/don-toliver-coming-2-america.mp3",
-    "clipStart": 0
-  },
-  {
-    "id": "don-toliver-big-conspiracy",
-    "title": "BIG Conspiracy",
-    "artist": "Don Toliver",
-    "lang": "en",
-    "genre": "rap",
-    "difficulty": "hard",
-    "audio": "/audio/don-toliver-big-conspiracy.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/b2/49/e9/b249e9e8-26be-dc5d-6dc1-ee3a0eedc7d1/mzaf_17267632493440472541.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54471,7 +54441,7 @@
     "lang": "en",
     "genre": "rap",
     "difficulty": "hard",
-    "audio": "/audio/don-toliver-alone.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ab/1e/86/ab1e867c-7ce6-bd06-4092-4ff9b04b8c5e/mzaf_10107721623283507089.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54481,7 +54451,7 @@
     "lang": "en",
     "genre": "rap",
     "difficulty": "easy",
-    "audio": "/audio/juice-wrld-lucid-dreams.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/9c/cb/87/9ccb87b5-cfd0-a77c-94fb-fe6fa124bcef/mzaf_7202917834670087023.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54491,7 +54461,7 @@
     "lang": "en",
     "genre": "rap",
     "difficulty": "easy",
-    "audio": "/audio/juice-wrld-all-girls-same.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/d9/b3/48/d9b348a1-215e-67d2-5f7d-d10ecdf318af/mzaf_9637773098199328780.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54501,7 +54471,7 @@
     "lang": "en",
     "genre": "rap",
     "difficulty": "easy",
-    "audio": "/audio/juice-wrld-robbery.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/fd/7f/00/fd7f0051-8757-536a-3967-17ceb2dbba5e/mzaf_3677615810180922699.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54511,7 +54481,7 @@
     "lang": "en",
     "genre": "rap",
     "difficulty": "easy",
-    "audio": "/audio/juice-wrld-black-white.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/33/56/5c/33565c34-57f8-fb65-1ff0-730bc4846816/mzaf_5354356036882140200.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54521,7 +54491,7 @@
     "lang": "en",
     "genre": "rap",
     "difficulty": "easy",
-    "audio": "/audio/juice-wrld-righteous.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/cb/7e/27/cb7e27dd-7fde-a882-0e6e-0fbf6969420f/mzaf_2707350002918467779.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54531,7 +54501,7 @@
     "lang": "en",
     "genre": "rap",
     "difficulty": "easy",
-    "audio": "/audio/juice-wrld-come-and-go.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/37/80/95/3780957b-4180-3ea2-ea15-d48a5b3bb0ba/mzaf_4689983440939425430.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54541,7 +54511,7 @@
     "lang": "en",
     "genre": "rap",
     "difficulty": "medium",
-    "audio": "/audio/juice-wrld-wishing-well.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/06/13/5d/06135d4e-ea6f-39f9-24c1-828b285e90db/mzaf_17132896124065690258.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54551,7 +54521,7 @@
     "lang": "en",
     "genre": "rap",
     "difficulty": "medium",
-    "audio": "/audio/juice-wrld-smile.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/d4/2f/71/d42f718d-fcbf-9d4f-6497-449685a52ec2/mzaf_1537738716771616746.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54561,7 +54531,7 @@
     "lang": "en",
     "genre": "rap",
     "difficulty": "medium",
-    "audio": "/audio/juice-wrld-conversations.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/1f/da/52/1fda52a1-8997-d005-4b6b-b0ab139c30f0/mzaf_12599395036163729610.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54571,7 +54541,7 @@
     "lang": "en",
     "genre": "rap",
     "difficulty": "medium",
-    "audio": "/audio/juice-wrld-already-dead.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/71/79/54/71795411-a1b2-c88f-13ba-a4f3effc6947/mzaf_669913420392940672.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54581,7 +54551,7 @@
     "lang": "en",
     "genre": "rap",
     "difficulty": "medium",
-    "audio": "/audio/juice-wrld-lean-wit-me.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/89/ba/23/89ba237d-6cfc-c9b0-3b91-fbb9ed9096ce/mzaf_7666711784786820724.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54591,7 +54561,7 @@
     "lang": "en",
     "genre": "rap",
     "difficulty": "medium",
-    "audio": "/audio/juice-wrld-fast.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/6d/84/01/6d840165-f5ae-39bb-0245-3cf9baebc9ff/mzaf_2868017584148428597.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54601,7 +54571,7 @@
     "lang": "en",
     "genre": "rap",
     "difficulty": "hard",
-    "audio": "/audio/juice-wrld-armed-dangerous.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/09/8e/9e/098e9e63-1154-7e82-5329-737ad53ab92c/mzaf_7140453741549644619.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54611,7 +54581,7 @@
     "lang": "en",
     "genre": "rap",
     "difficulty": "hard",
-    "audio": "/audio/juice-wrld-no-good.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/e7/75/09/e7750997-aa68-5547-cb43-1ab99ff3aa8d/mzaf_17734662560112653244.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54621,7 +54591,7 @@
     "lang": "en",
     "genre": "rap",
     "difficulty": "hard",
-    "audio": "/audio/juice-wrld-maze.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/5c/24/b0/5c24b0cf-fd1e-6934-017e-88c8da9b20f9/mzaf_16032283781031675085.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54655,7 +54625,7 @@
     "lang": "en",
     "genre": "rap",
     "difficulty": "easy",
-    "audio": "/audio/don-toliver-no-idea-v2.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/0d/4f/0f/0d4f0f87-a930-c4c9-99e8-0edce8e4f91a/mzaf_7455232474434756947.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54665,7 +54635,7 @@
     "lang": "en",
     "genre": "rap",
     "difficulty": "easy",
-    "audio": "/audio/don-toliver-body.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/a4/6b/e2/a46be242-f934-1876-06d1-fe4cedea4cdb/mzaf_16330599808244850326.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54675,7 +54645,7 @@
     "lang": "en",
     "genre": "rap",
     "difficulty": "easy",
-    "audio": "/audio/don-toliver-cardigan.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/50/13/7c/50137cfa-ef2f-5961-692c-f16ad9dfd5b7/mzaf_3843823517830343632.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54685,7 +54655,7 @@
     "lang": "en",
     "genre": "rap",
     "difficulty": "medium",
-    "audio": "/audio/don-toliver-secondhand.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/50/13/7c/50137cfa-ef2f-5961-692c-f16ad9dfd5b7/mzaf_3843823517830343632.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54695,7 +54665,7 @@
     "lang": "en",
     "genre": "rap",
     "difficulty": "medium",
-    "audio": "/audio/don-toliver-the-wknd.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/1e/cd/50/1ecd50b2-343b-c570-d976-7e089e56e0a5/mzaf_7391966967236748397.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54705,7 +54675,7 @@
     "lang": "en",
     "genre": "rap",
     "difficulty": "medium",
-    "audio": "/audio/don-toliver-dishonest.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/c3/80/d2/c380d29f-cb7b-10fb-45e5-b5d3fa0f4727/mzaf_14355691509139685162.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54715,17 +54685,17 @@
     "lang": "en",
     "genre": "rap",
     "difficulty": "hard",
-    "audio": "/audio/don-toliver-ice-cream.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/4d/10/4d/4d104d84-ef23-1712-1695-63582b0b6af8/mzaf_6511400853388688166.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
     "id": "don-toliver-outerspace-ridez",
-    "title": "Outerspace / Ridin' Around",
-    "artist": "Don Toliver",
+    "title": "OUTERSPACE",
+    "artist": "Don Toliver feat. Baby Keem",
     "lang": "en",
     "genre": "rap",
     "difficulty": "hard",
-    "audio": "/audio/don-toliver-outerspace-ridez.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/5a/48/c5/5a48c5e1-9922-3ebf-2163-1dd670668d01/mzaf_11603359028937230033.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54735,7 +54705,7 @@
     "lang": "en",
     "genre": "electronic",
     "difficulty": "easy",
-    "audio": "/audio/marshmello-alone.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/9d/48/a7/9d48a72f-98da-4bd6-961b-b4ce7d231bfe/mzaf_3256157696428180951.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54745,7 +54715,7 @@
     "lang": "en",
     "genre": "electronic",
     "difficulty": "easy",
-    "audio": "/audio/marshmello-happier.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/fb/3f/e6/fb3fe69b-1f83-dae3-ad86-34b73a50e86c/mzaf_12086156071273718688.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54755,7 +54725,7 @@
     "lang": "en",
     "genre": "electronic",
     "difficulty": "easy",
-    "audio": "/audio/marshmello-friends.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/c4/11/ec/c411ec87-652d-5949-e4b4-b96a3b79bd44/mzaf_2770260964319937485.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54765,7 +54735,7 @@
     "lang": "en",
     "genre": "electronic",
     "difficulty": "easy",
-    "audio": "/audio/marshmello-silence.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/0f/01/5b/0f015b3a-6307-8ec4-3252-c91c45045e31/mzaf_6151370188163605003.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54775,17 +54745,17 @@
     "lang": "en",
     "genre": "pop",
     "difficulty": "easy",
-    "audio": "/audio/marshmello-be-kind.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/2b/0b/86/2b0b86bd-3de1-f426-fe0c-591c63922a49/mzaf_3495041656406176255.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
     "id": "marshmello-rescue-me",
     "title": "Rescue Me",
-    "artist": "Marshmello & Anne-Marie",
+    "artist": "Marshmello & A Day To Remember",
     "lang": "en",
     "genre": "pop",
     "difficulty": "easy",
-    "audio": "/audio/marshmello-rescue-me.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/79/41/1c/79411c7b-3b80-171a-efd0-0064399ef5f6/mzaf_2787156238424354950.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54795,7 +54765,7 @@
     "lang": "en",
     "genre": "electronic",
     "difficulty": "medium",
-    "audio": "/audio/marshmello-moving-on.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/09/09/21/09092150-e51a-5700-9ba4-6c00a33e8a7b/mzaf_1192807937191314662.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54805,7 +54775,7 @@
     "lang": "en",
     "genre": "electronic",
     "difficulty": "medium",
-    "audio": "/audio/marshmello-take-it-back.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/3b/58/73/3b5873b1-7aa2-d1d6-152c-4fdec3049f53/mzaf_14422103852978243668.plus.aac.p.m4a",
     "clipStart": 0
   },
   {
@@ -54815,7 +54785,37 @@
     "lang": "en",
     "genre": "pop",
     "difficulty": "medium",
-    "audio": "/audio/marshmello-light-it-up.mp3",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/b7/18/4f/b7184f3c-f26e-6847-50b1-8c9e550db7cf/mzaf_10863318747265767097.plus.aac.p.m4a",
     "clipStart": 0
+  },
+  {
+    "id": "don-toliver-bandit",
+    "title": "BANDIT",
+    "artist": "Don Toliver",
+    "lang": "en",
+    "genre": "rap",
+    "difficulty": "easy",
+    "clipStart": 0,
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/a0/32/00/a0320028-02bd-feb1-644d-2937907c41b0/mzaf_1316463978077053807.plus.aac.p.m4a"
+  },
+  {
+    "id": "don-toliver-tore-up",
+    "title": "TORE UP",
+    "artist": "Don Toliver",
+    "lang": "en",
+    "genre": "rap",
+    "difficulty": "easy",
+    "clipStart": 0,
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/0e/d1/69/0ed16941-76d9-1300-3da1-e0492f3991a8/mzaf_771535588021638781.plus.aac.p.m4a"
+  },
+  {
+    "id": "don-toliver-private-landing",
+    "title": "Private Landing",
+    "artist": "Don Toliver feat. Justin Bieber & Future",
+    "lang": "en",
+    "genre": "rap",
+    "difficulty": "medium",
+    "clipStart": 0,
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/cb/42/5c/cb425c10-0ef1-6eda-dfd5-9b180fb30b74/mzaf_973930821348998994.plus.aac.p.m4a"
   }
 ]

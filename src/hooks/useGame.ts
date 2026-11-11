@@ -44,12 +44,36 @@ export interface UseGameReturn {
 export function useGame(): UseGameReturn {
   // ── Filters ───────────────────────────────────────────────────────────────
   const [filters, setFilters] = useState<Filters>(() => {
-    const stored = getItem<Filters>(STORAGE_KEYS.FILTERS, DEFAULT_FILTERS)
+    const raw = getItem<Partial<Filters>>(STORAGE_KEYS.FILTERS, DEFAULT_FILTERS)
+
+    // Ensure skTypes is a valid array of SkTypes
+    let skTypes: SkType[] = Array.isArray(raw?.skTypes) && raw.skTypes.length > 0
+      ? raw.skTypes.filter((t) => ALL_SK_TYPES.includes(t))
+      : [...ALL_SK_TYPES]
+    if (skTypes.length === 0) skTypes = [...ALL_SK_TYPES]
+
+    // Ensure genres is a valid array of Genres
+    let genres: Genre[] = Array.isArray(raw?.genres) && raw.genres.length > 0
+      ? raw.genres
+      : [...ALL_GENRES]
+
     // Migrate: replace 'indie' with 'rap' in stored genres
-    if (stored.genres && stored.genres.includes('indie' as Genre)) {
-      stored.genres = stored.genres.map((g) => (g === ('indie' as Genre) ? 'rap' : g)) as Genre[]
+    if (genres.includes('indie' as Genre)) {
+      genres = genres.map((g) => (g === ('indie' as Genre) ? 'rap' : g))
     }
-    return stored
+    genres = genres.filter((g) => ALL_GENRES.includes(g))
+    if (genres.length === 0) genres = [...ALL_GENRES]
+
+    const difficulty: Difficulty = (['easy', 'medium', 'hard'] as Difficulty[]).includes(raw?.difficulty as Difficulty)
+      ? (raw.difficulty as Difficulty)
+      : 'easy'
+
+    return {
+      skMode: Boolean(raw?.skMode),
+      skTypes,
+      genres,
+      difficulty,
+    }
   })
 
   // Persist filters
@@ -118,9 +142,11 @@ export function useGame(): UseGameReturn {
   // Single effect handles both initial mount and filter changes.
   // prevFilterKeyRef starts as null so the very first filterKey value always
   // triggers a game start (covers the initial load in production mode).
+  const safeSkTypes = Array.isArray(filters.skTypes) && filters.skTypes.length > 0 ? filters.skTypes : ALL_SK_TYPES
+  const safeGenres = Array.isArray(filters.genres) && filters.genres.length > 0 ? filters.genres : ALL_GENRES
   const filterKey = filters.skMode
-    ? `sk|${filters.skTypes.slice().sort().join(',')}`
-    : `en|${filters.genres.slice().sort().join(',')}|${filters.difficulty}`
+    ? `sk|${safeSkTypes.slice().sort().join(',')}`
+    : `en|${safeGenres.slice().sort().join(',')}|${filters.difficulty ?? 'easy'}`
 
   const prevFilterKeyRef = useRef<string | null>(null)
 
@@ -256,7 +282,11 @@ export function useGame(): UseGameReturn {
   // ── Filter setters ────────────────────────────────────────────────────────
 
   const setSkMode = useCallback((on: boolean) => {
-    setFilters((prev) => ({ ...prev, skMode: on }))
+    setFilters((prev) => ({
+      ...prev,
+      skMode: on,
+      skTypes: Array.isArray(prev.skTypes) && prev.skTypes.length > 0 ? prev.skTypes : [...ALL_SK_TYPES],
+    }))
   }, [])
 
   const setSkTypes = useCallback((t: SkType[]) => {

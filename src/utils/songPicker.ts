@@ -1,5 +1,5 @@
 import type { Song, Lang, Genre, Difficulty, SkType } from '../types'
-import { CLIP_DURATIONS } from '../types'
+import { CLIP_DURATIONS, ALL_GENRES, ALL_SK_TYPES } from '../types'
 
 // ─────────────────────────────────────────────
 // Filter helpers
@@ -10,15 +10,16 @@ import { CLIP_DURATIONS } from '../types'
  */
 export function filterEnSongs(
   songs: Song[],
-  genres: Genre[],
-  difficulty: Difficulty,
+  genres: Genre[] = ALL_GENRES,
+  difficulty: Difficulty = 'easy',
 ): Song[] {
+  if (!genres || genres.length === 0) return []
   return songs.filter((s) => {
     if (!s.title || !s.artist) return false
     if (!s.audio || s.audio.includes('fallback')) return false
     if (s.lang !== 'en') return false
     if (s.difficulty !== difficulty) return false
-    if (genres.length > 0 && s.genre && !genres.includes(s.genre)) return false
+    if (s.genre && !genres.includes(s.genre)) return false
     return true
   })
 }
@@ -28,14 +29,14 @@ export function filterEnSongs(
  */
 export function filterSkSongs(
   songs: Song[],
-  skTypes: SkType[],
+  skTypes: SkType[] = ALL_SK_TYPES,
 ): Song[] {
-  if (skTypes.length === 0) return []
+  if (!skTypes || skTypes.length === 0) return []
   return songs.filter((s) => {
     if (!s.title || !s.artist) return false
     if (!s.audio || s.audio.includes('fallback')) return false
     if (s.lang !== 'sk') return false
-    if (skTypes.length > 0 && !skTypes.includes(s.skType ?? 'modern')) return false
+    if (!skTypes.includes(s.skType ?? 'modern')) return false
     return true
   })
 }
