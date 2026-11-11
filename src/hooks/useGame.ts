@@ -94,7 +94,9 @@ export function useGame(): UseGameReturn {
   }, [audio.isPlaying])
 
   // ── When filters change – reset bag and start a new game ──────────────────
-  const startNewGame = useCallback((pool: Song[]) => {
+  // Use a ref so that the filterKey effect always calls the latest version
+  // without needing it in the dependency array (avoids stale closure on production builds).
+  const startNewGameFn = (pool: Song[]) => {
     audio.stop()
     if (autoPlayTimerRef.current !== null) {
       clearTimeout(autoPlayTimerRef.current)
@@ -109,7 +111,9 @@ export function useGame(): UseGameReturn {
       phase: song ? 'playing' : 'idle',
       isPlaying: false,
     })
-  }, [audio])
+  }
+  const startNewGameRef = useRef(startNewGameFn)
+  startNewGameRef.current = startNewGameFn
 
   // Track previous filter key to detect changes
   const prevFilterKeyRef = useRef<string>('')
@@ -120,8 +124,7 @@ export function useGame(): UseGameReturn {
   useEffect(() => {
     if (prevFilterKeyRef.current === filterKey) return
     prevFilterKeyRef.current = filterKey
-    startNewGame(filteredSongsRef.current)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    startNewGameRef.current(filteredSongsRef.current)
   }, [filterKey])
 
   // Initial game start
@@ -129,8 +132,8 @@ export function useGame(): UseGameReturn {
   useEffect(() => {
     if (didInit.current) return
     didInit.current = true
-    startNewGame(filteredSongsRef.current)
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+    startNewGameRef.current(filteredSongsRef.current)
+  }, [])
 
   // ── Actions ───────────────────────────────────────────────────────────────
 
