@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import type { Song, GameState, GuessEntry, Filters, Difficulty, Genre, SkType } from '../types'
 import { MAX_ATTEMPTS, CLIP_DURATIONS, ALL_GENRES, ALL_SK_TYPES } from '../types'
 import { filterEnSongs, filterSkSongs, ShuffleBag, getClipDuration } from '../utils/songPicker'
-import { getItem, setItem, STORAGE_KEYS } from '../utils/storage'
+import { removeItem, STORAGE_KEYS } from '../utils/storage'
 import { useAudio } from './useAudio'
 import songsData from '../data/songs.json'
 import type { UseAudioReturn } from './useAudio'
@@ -43,43 +43,13 @@ export interface UseGameReturn {
 
 export function useGame(): UseGameReturn {
   // ── Filters ───────────────────────────────────────────────────────────────
+  // Always start with fresh default filters on every page load/reload.
+  // Settings are intentionally not remembered across reloads to avoid any stale/broken states.
   const [filters, setFilters] = useState<Filters>(() => {
-    const raw = getItem<Partial<Filters>>(STORAGE_KEYS.FILTERS, DEFAULT_FILTERS)
-
-    // Ensure skTypes is a valid array of SkTypes
-    let skTypes: SkType[] = Array.isArray(raw?.skTypes) && raw.skTypes.length > 0
-      ? raw.skTypes.filter((t) => ALL_SK_TYPES.includes(t))
-      : [...ALL_SK_TYPES]
-    if (skTypes.length === 0) skTypes = [...ALL_SK_TYPES]
-
-    // Ensure genres is a valid array of Genres
-    let genres: Genre[] = Array.isArray(raw?.genres) && raw.genres.length > 0
-      ? raw.genres
-      : [...ALL_GENRES]
-
-    // Migrate: replace 'indie' with 'rap' in stored genres
-    if (genres.includes('indie' as Genre)) {
-      genres = genres.map((g) => (g === ('indie' as Genre) ? 'rap' : g))
-    }
-    genres = genres.filter((g) => ALL_GENRES.includes(g))
-    if (genres.length === 0) genres = [...ALL_GENRES]
-
-    const difficulty: Difficulty = (['easy', 'medium', 'hard'] as Difficulty[]).includes(raw?.difficulty as Difficulty)
-      ? (raw.difficulty as Difficulty)
-      : 'easy'
-
-    return {
-      skMode: Boolean(raw?.skMode),
-      skTypes,
-      genres,
-      difficulty,
-    }
+    // Actively purge any legacy stored filters from localStorage
+    removeItem(STORAGE_KEYS.FILTERS)
+    return { ...DEFAULT_FILTERS }
   })
-
-  // Persist filters
-  useEffect(() => {
-    setItem(STORAGE_KEYS.FILTERS, filters)
-  }, [filters])
 
   // ── Song pool ─────────────────────────────────────────────────────────────
   const filteredSongs: Song[] = filters.skMode
