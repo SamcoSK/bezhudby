@@ -69,6 +69,10 @@ export function useGame(): UseGameReturn {
 
   const bagRef = useRef<ShuffleBag>(new ShuffleBag(filteredSongs))
 
+  // Always keep a ref to the latest filteredSongs so effects never use stale closures
+  const filteredSongsRef = useRef<Song[]>(filteredSongs)
+  filteredSongsRef.current = filteredSongs
+
   // ── Audio ──────────────────────────────────────────────────────────────────
   const audio = useAudio()
 
@@ -116,7 +120,7 @@ export function useGame(): UseGameReturn {
   useEffect(() => {
     if (prevFilterKeyRef.current === filterKey) return
     prevFilterKeyRef.current = filterKey
-    startNewGame(filteredSongs)
+    startNewGame(filteredSongsRef.current)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterKey])
 
@@ -125,7 +129,7 @@ export function useGame(): UseGameReturn {
   useEffect(() => {
     if (didInit.current) return
     didInit.current = true
-    startNewGame(filteredSongs)
+    startNewGame(filteredSongsRef.current)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Actions ───────────────────────────────────────────────────────────────
@@ -239,10 +243,8 @@ export function useGame(): UseGameReturn {
       clearTimeout(autoPlayTimerRef.current)
       autoPlayTimerRef.current = null
     }
-    // Make sure bag pool is aligned with current filteredSongs
-    if (bagRef.current.size !== filteredSongs.length) {
-      bagRef.current.reset(filteredSongs)
-    }
+    // Always sync bag with latest filteredSongs (catches mode/filter changes)
+    bagRef.current.reset(filteredSongsRef.current)
     const song = bagRef.current.pick(gameState.currentSong?.id)
     setGameState({
       currentSong: song ?? null,
@@ -251,7 +253,7 @@ export function useGame(): UseGameReturn {
       phase: song ? 'playing' : 'idle',
       isPlaying: false,
     })
-  }, [audio, filteredSongs, gameState.currentSong?.id])
+  }, [audio, gameState.currentSong?.id])
 
   // ── Filter setters ────────────────────────────────────────────────────────
 
