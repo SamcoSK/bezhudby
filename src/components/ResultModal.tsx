@@ -84,6 +84,8 @@ export default function ResultModal({
                 'w-7 h-7 rounded flex items-center justify-center text-sm font-bold',
                 g.status === 'correct'
                   ? 'bg-accent-400/30 text-accent-600 dark:text-accent-400'
+                  : g.status === 'partial'
+                  ? 'bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 border border-amber-400/50'
                   : g.status === 'wrong'
                   ? 'bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400'
                   : 'bg-slate-100 dark:bg-slate-700 text-slate-400',
@@ -91,12 +93,14 @@ export default function ResultModal({
               aria-label={
                 g.status === 'correct'
                   ? 'Správne'
+                  : g.status === 'partial'
+                  ? 'Správny autor'
                   : g.status === 'wrong'
                   ? 'Nesprávne'
                   : 'Preskočené'
               }
             >
-              {g.status === 'correct' ? '✓' : g.status === 'wrong' ? '✗' : '—'}
+              {g.status === 'correct' ? '✓' : g.status === 'partial' ? '🎯' : g.status === 'wrong' ? '✗' : '—'}
             </span>
           ))}
         </div>

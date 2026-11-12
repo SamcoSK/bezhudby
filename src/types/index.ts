@@ -48,7 +48,7 @@ export interface Song {
 // Game state types
 // ─────────────────────────────────────────────
 
-export type GuessStatus = 'correct' | 'wrong' | 'skipped'
+export type GuessStatus = 'correct' | 'wrong' | 'skipped' | 'partial'
 
 export interface GuessEntry {
   attempt: number
@@ -57,6 +57,8 @@ export interface GuessEntry {
   value: string
   /** Clip duration played for this attempt (seconds) */
   clipDuration: number
+  /** True if the guessed song matched the artist/author but not the title */
+  artistMatch?: boolean
 }
 
 export type GamePhase =

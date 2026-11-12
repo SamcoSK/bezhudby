@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { normalizeText, songMatchesQuery, normalizedEquals } from '../src/utils/normalize'
+import { normalizeText, songMatchesQuery, normalizedEquals, isArtistMatch } from '../src/utils/normalize'
 
 describe('normalizeText', () => {
   it('removes diacritics', () => {
@@ -86,5 +86,35 @@ describe('normalizedEquals', () => {
 
   it('returns false for different strings', () => {
     expect(normalizedEquals('Elán', 'eminem')).toBe(false)
+  })
+})
+
+describe('isArtistMatch', () => {
+  it('matches identical artists with different casing or diacritics', () => {
+    expect(isArtistMatch('Elán', 'elan')).toBe(true)
+    expect(isArtistMatch('Miroslav Žbirka', 'miroslav zbirka')).toBe(true)
+    expect(isArtistMatch('Horkýže Slíže', 'HORKÝŽE SLÍŽE')).toBe(true)
+  })
+
+  it('matches collaborations where at least one main artist is shared', () => {
+    expect(isArtistMatch('Separ & Peter Pann', 'Separ')).toBe(true)
+    expect(isArtistMatch('Separ', 'Separ & Peter Pann')).toBe(true)
+    expect(isArtistMatch('EGO, Sima & Ben Cristovao', 'Sima')).toBe(true)
+    expect(isArtistMatch('Richard Müller & Banket', 'Richard Müller')).toBe(true)
+  })
+
+  it('returns false for completely different artists', () => {
+    expect(isArtistMatch('Elán', 'Tublatanka')).toBe(false)
+    expect(isArtistMatch('Eminem', 'Rihanna')).toBe(false)
+    expect(isArtistMatch('Separ', 'Pil C')).toBe(false)
+  })
+
+  it('matches folk songs by performer when available', () => {
+    expect(
+      isArtistMatch('ľudová pieseň', 'ľudová pieseň', 'Lúčnica', 'Lúčnica'),
+    ).toBe(true)
+    expect(
+      isArtistMatch('ľudová pieseň', 'ľudová pieseň', 'Lúčnica', 'SĽUK'),
+    ).toBe(false)
   })
 })

@@ -3,6 +3,7 @@ import type { Song, GameState, GuessEntry, Filters, Difficulty, Genre, SkType } 
 import { MAX_ATTEMPTS, CLIP_DURATIONS, ALL_GENRES, ALL_SK_TYPES } from '../types'
 import { filterEnSongs, filterSkSongs, ShuffleBag, getClipDuration } from '../utils/songPicker'
 import { removeItem, STORAGE_KEYS } from '../utils/storage'
+import { isArtistMatch } from '../utils/normalize'
 import { useAudio } from './useAudio'
 import songsData from '../data/songs.json'
 import type { UseAudioReturn } from './useAudio'
@@ -163,10 +164,20 @@ export function useGame(): UseGameReturn {
 
     const isCorrect = currentSong.id === songId
     const matchedSong = allSongs.find((s) => s.id === songId)
+    const artistMatches = !isCorrect && matchedSong
+      ? isArtistMatch(matchedSong.artist, currentSong.artist, matchedSong.performer, currentSong.performer)
+      : false
+
+    const status: GuessEntry['status'] = isCorrect
+      ? 'correct'
+      : artistMatches
+      ? 'partial'
+      : 'wrong'
 
     const entry: GuessEntry = {
       attempt,
-      status: isCorrect ? 'correct' : 'wrong',
+      status,
+      artistMatch: artistMatches,
       value: matchedSong
         ? `${matchedSong.title} – ${matchedSong.artist}${matchedSong.performer ? ` (${matchedSong.performer})` : ''}`
         : songId,

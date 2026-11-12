@@ -141,6 +141,14 @@ export default function GameScreen() {
             {/* Guess history */}
             <GuessHistory guesses={guesses} maxAttempts={6} />
 
+            {/* Hint banner when player matched the artist but not the exact song */}
+            {phase === 'playing' && guesses.some((g) => g.status === 'partial') && (
+              <div className="flex items-center justify-center gap-2 px-3.5 py-2 rounded-xl bg-amber-500/15 border border-amber-500/40 text-amber-900 dark:text-amber-200 text-xs font-bold shadow-sm animate-fade-in text-center">
+                <span className="text-sm">🎯</span>
+                <span>Trafený interpret! Teraz už len nájdi správnu skladbu.</span>
+              </div>
+            )}
+
             {/* Guess input (only shown while playing) */}
             {phase === 'playing' && currentSong && (
               <GuessInput
