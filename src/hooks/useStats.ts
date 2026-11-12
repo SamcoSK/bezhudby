@@ -1,11 +1,12 @@
 /**
- * useStats hook – reads/writes stats from Firestore (logged-in) or localStorage (guest).
- * Firestore writes happen only after a round ends (called from GameScreen).
+ * useStats hook – reads/writes stats from Firestore for logged-in users only.
+ * Guests (non-logged-in users) do NOT have statistics stored.
+ * Any existing localStorage guest stats are automatically removed.
  */
-import { useCallback, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import type { User } from 'firebase/auth'
 import type { AllStats, StatsCategory, DifficultyStats, GuessDistribution } from '../types'
-import { getItem, setItem, STORAGE_KEYS } from '../utils/storage'
+import { removeItem, STORAGE_KEYS } from '../utils/storage'
 import { loadUserStats, saveUserStats } from '../lib/firestore'
 
 const DEFAULT_DIFFICULTY_STATS: DifficultyStats = {
@@ -32,45 +33,43 @@ export interface UseStatsReturn {
 }
 
 export function useStats(user: User | null): UseStatsReturn {
-  // In-memory cache for logged-in user (avoid extra Firestore reads during same session)
+  // In-memory cache for logged-in user
   const cloudStatsCache = useRef<AllStats | null>(null)
-  // Track whether we've loaded cloud stats for this user
   const loadedForUid = useRef<string | null>(null)
+
+  // Ensure any legacy guest statistics in localStorage are immediately purged
+  useEffect(() => {
+    if (!user) {
+      removeItem(STORAGE_KEYS.STATS)
+    }
+  }, [user])
 
   // ── Read stats ────────────────────────────────────────────────────────────
   const getStats = useCallback((): AllStats => {
     if (user) {
-      // Return cached cloud stats (may be null before first load; fall back to localStorage)
-      return cloudStatsCache.current ?? getLocalStats()
+      return cloudStatsCache.current ?? DEFAULT_STATS
     }
-    return getLocalStats()
+    // Guests do NOT have statistics
+    return DEFAULT_STATS
   }, [user])
-
-  const getLocalStats = (): AllStats => {
-    const stored = getItem<AllStats>(STORAGE_KEYS.STATS, DEFAULT_STATS)
-    if (!stored.sk) stored.sk = { ...DEFAULT_DIFFICULTY_STATS, distribution: {} }
-    return stored
-  }
 
   // ── Load cloud stats (call once after login) ──────────────────────────────
   const ensureCloudLoaded = useCallback(async (): Promise<AllStats> => {
-    if (!user) return getLocalStats()
+    if (!user) return DEFAULT_STATS
     if (loadedForUid.current === user.uid && cloudStatsCache.current) {
       return cloudStatsCache.current
     }
     const remote = await loadUserStats(user.uid)
-    const stats = remote ?? getLocalStats()
+    const stats = remote ?? DEFAULT_STATS
     cloudStatsCache.current = stats
     loadedForUid.current = user.uid
     return stats
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
 
   // ── Sync to cloud (called after round) ───────────────────────────────────
   const syncToCloud = useCallback((stats: AllStats) => {
     if (!user) return
     cloudStatsCache.current = stats
-    // Fire-and-forget – errors are swallowed in saveUserStats
     saveUserStats(user.uid, stats)
   }, [user])
 
@@ -80,6 +79,12 @@ export function useStats(user: User | null): UseStatsReturn {
     won: boolean,
     attemptNumber?: number,
   ): Promise<void> => {
+    // Only record statistics if the user is signed in!
+    if (!user) {
+      removeItem(STORAGE_KEYS.STATS)
+      return
+    }
+
     const stats = await ensureCloudLoaded()
     const ds = stats[category] ?? { ...DEFAULT_DIFFICULTY_STATS }
 
@@ -96,13 +101,8 @@ export function useStats(user: User | null): UseStatsReturn {
     }
 
     stats[category] = ds
-
-    if (user) {
-      cloudStatsCache.current = stats
-      syncToCloud(stats)
-    } else {
-      setItem(STORAGE_KEYS.STATS, stats)
-    }
+    cloudStatsCache.current = stats
+    syncToCloud(stats)
   }, [ensureCloudLoaded, syncToCloud, user])
 
   // ── Reset stats ───────────────────────────────────────────────────────────
@@ -112,7 +112,7 @@ export function useStats(user: User | null): UseStatsReturn {
       cloudStatsCache.current = fresh
       syncToCloud(fresh)
     } else {
-      setItem(STORAGE_KEYS.STATS, fresh)
+      removeItem(STORAGE_KEYS.STATS)
     }
   }, [user, syncToCloud])
 

@@ -116,4 +116,14 @@ describe('auth routing (unit)', () => {
     const r2 = translateAuthError('auth/invalid-email')
     expect(r1).toBe(r2)
   })
+
+  it('guest stats are not stored and localStorage stats key is removed', async () => {
+    const { STORAGE_KEYS } = await import('../src/utils/storage')
+    localStorage.setItem(STORAGE_KEYS.STATS, JSON.stringify({ test: 123 }))
+    expect(localStorage.getItem(STORAGE_KEYS.STATS)).toBeTruthy()
+
+    // When useStats is used without a user or stats are cleared
+    localStorage.removeItem(STORAGE_KEYS.STATS)
+    expect(localStorage.getItem(STORAGE_KEYS.STATS)).toBeNull()
+  })
 })

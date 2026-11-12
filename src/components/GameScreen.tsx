@@ -11,12 +11,14 @@ import GuessInput from './GuessInput'
 import GuessHistory from './GuessHistory'
 import ResultModal from './ResultModal'
 import StatsModal from './StatsModal'
+import AuthModal from './AuthModal'
 
 export default function GameScreen() {
   const { user } = useAuthContext()
   const { gameState, filters, filteredSongs, allSongsForMode, audio, actions } = useGame()
   const { getStats, recordResult, resetStats } = useStats(user)
   const [showStats, setShowStats] = useState(false)
+  const [showAuthModal, setShowAuthModal] = useState(false)
 
   const { currentSong, guesses, attempt, phase, isPlaying } = gameState
   const isEnded = phase === 'won' || phase === 'lost'
@@ -173,7 +175,14 @@ export default function GameScreen() {
           currentCategory={filters.skMode ? 'sk' : filters.difficulty}
           onClose={() => setShowStats(false)}
           onReset={() => { void resetStats(); setShowStats(false) }}
+          isGuest={!user}
+          onOpenAuth={() => setShowAuthModal(true)}
         />
+      )}
+
+      {/* ── Auth modal (from stats button when guest) ───────────────────────── */}
+      {showAuthModal && (
+        <AuthModal onClose={() => setShowAuthModal(false)} />
       )}
     </div>
   )

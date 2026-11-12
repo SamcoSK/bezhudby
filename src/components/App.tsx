@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getItem, setItem, STORAGE_KEYS } from '../utils/storage'
+import { getItem, setItem, removeItem, STORAGE_KEYS } from '../utils/storage'
 import { AuthProvider, useAuthContext } from '../lib/AuthContext'
 import { isFirebaseConfigured } from '../lib/firebase'
 import { hasMigrated, migrateLocalStats, markMigrated } from '../lib/firestore'
@@ -31,6 +31,13 @@ function AppInner() {
     document.documentElement.classList.toggle('dark', dark)
     setItem(STORAGE_KEYS.DARK_MODE, dark)
   }, [dark])
+
+  // ── Always clear guest stats from localStorage for non-logged-in visitors ──
+  useEffect(() => {
+    if (!user) {
+      removeItem(STORAGE_KEYS.STATS)
+    }
+  }, [user])
 
   // ── Migration: show dialog on first login ────────────────────────────────
   useEffect(() => {
@@ -130,6 +137,8 @@ function AppInner() {
           currentCategory="sk"
           onClose={() => setShowStatsModal(false)}
           onReset={() => { void resetStats(); setShowStatsModal(false) }}
+          isGuest={!user}
+          onOpenAuth={() => setShowAuthModal(true)}
         />
       )}
 
