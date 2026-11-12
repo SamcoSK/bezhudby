@@ -92,9 +92,15 @@ for (let i = 0; i < songs.length; i++) {
     if (s.difficulty !== undefined) {
       warn(`${prefix}: SK pieseň má pole difficulty – malo by byť odstránené`)
     }
-    // folk songs should have artist = "ľudová pieseň"
-    if (s.skType === 'folk' && String(s.artist).toLowerCase() !== 'ľudová pieseň') {
-      warn(`${prefix}: ľudovka má iného autora ako "ľudová pieseň" (je: ${s.artist})`)
+    // folk songs should have artist = "ľudová pieseň" or known folklore ensemble
+    const isKnownFolk = [
+      'ľudová pieseň', 'kollárovci', 'senzus', 'kandráčovci', 'sľuk', 'sluk',
+      'lúčnica', 'lúcnica', 'štefan štec', 'folklórny súbor', 'ľudovky',
+      'ľudová hudba', 'hreha'
+    ].some(k => String(s.artist).toLowerCase().includes(k))
+
+    if (s.skType === 'folk' && !isKnownFolk) {
+      warn(`${prefix}: ľudovka má neobvyklého autora (je: ${s.artist})`)
     }
   }
 
